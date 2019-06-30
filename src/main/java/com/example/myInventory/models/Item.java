@@ -3,17 +3,19 @@ package com.example.myInventory.models;
 public class Item{
     private int id;
     private String name;
-    private int qty;
+    private String itemNumber;
     private int totalQty;
-    private String barCode;
+    private int available;
+    private int outGoing;
     private double price;
 
     public Item(){ }
-    public Item(String name,int totalQty, String barCode, double price){
+    public Item(String name, String itemNumber, int totalQty, double price){
         this.name = name;
-        this.qty = totalQty;
+        this.itemNumber = itemNumber;
         this.totalQty = totalQty;
-        this.barCode = barCode;
+        available = 0;
+        outGoing = 0;
         this.price = price;
     }
 
@@ -25,45 +27,58 @@ public class Item{
         return name;
     }
 
-    public int getQty() {
-        return qty;
+    public String getItemNumber() {
+        return itemNumber;
     }
 
     public int getTotalQty() {
         return totalQty;
     }
 
-    public String getBarCode() {
-        return barCode;
+    public int getAvailable() {
+        return available;
+    }
+
+    public int getOutGoing() {
+        return outGoing;
     }
 
     public double getPrice() {
         return price;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setItemNumber(String itemNumber) {
+        this.itemNumber = itemNumber;
     }
 
     public void setTotalQty(int totalQty) {
         this.totalQty = totalQty;
     }
 
+    public void setAvailable(int available) {
+        this.available = available;
+    }
+
+    public void setOutGoing(int outGoing) {
+        this.outGoing = outGoing;
+    }
+
     public void setPrice(double price) {
         this.price = price;
     }
 
-    public int subtractQty(int num){
-        qty = totalQty - num;
-        return qty;
+    public int purchaseItem(int num){
+        available = totalQty - num;
+        return available;
     }
 
-    public int addQty(int num){
-        qty = totalQty + num;
-        return qty;
+    public int orderItem(int num){
+        available = totalQty + num;
+        return available;
     }
 }
