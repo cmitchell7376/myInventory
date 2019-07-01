@@ -1,0 +1,13 @@
+.side-nav{
+    height: 565px;
+    width: 200px;
+    background-color: white;
+}
+
+.side-link{
+    padding-top: 50px;
+}
+
+.footer{
+    background-color: gray;
+}

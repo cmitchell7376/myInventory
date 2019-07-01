@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-</head>
-<body>
+    <head th:replace="fragments :: head"></head>
+    <body>
+        <nav th:replace="fragments :: nav"></nav>
 
-</body>
+        <div class="border-right side-nav">
+            <nav class="nav flex-column">
+                <span class="side-link">
+                    <a class="nav-link" href="#">
+                        <img th:src="@{orderImage.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Orders</span>
+                    </a>
+                </span>
+                <span class="side-link">
+                    <a class="nav-link" href="#">
+                        <img th:src="@{addImage.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Add Image</span>
+                    </a>
+                </span>
+                <span class="side-link">
+                    <a class="nav-link" href="#">
+                        <img th:src="@{removeItem.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Remove Image</span>
+                    </a>
+                </span>
+                <span class="side-link">
+                    <a class="nav-link" href="#">
+                        <img th:src="@{receiptImage.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Receipts</span>
+                    </a>
+                </span>
+            </nav>
+        </div>
+
+        <footer th:replace="fragments :: footer"></footer>
+    </body>
 </html>

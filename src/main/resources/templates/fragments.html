@@ -6,9 +6,9 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous">
+              crossorigin="anonymous" />
 
-        <link rel="stylesheet" type="text/css" href="../static/styles.css">
+        <link rel="stylesheet" type="text/css" th:href="@{styles.css}" />
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -40,21 +40,8 @@
             </div>
         </nav>
 
-
-        <div class="border-right" style="height: 565px; width: 200px; background-color: white;">
-            <nav class="nav flex-column">
-
-                <span style="padding-top: 50px;">
-                    <a class="nav-link" href="#">
-                        <img src="../static/orderImage.png" height="42" width="42">
-                        <span style="padding-left: 5px;">Orders</span>
-                    </a>
-                </span>
-            </nav>
-        </div>
-
-        <footer style="bottom:0; position: fixed; background-color: grey; width: 100%;">
-            <span class="test">&copy myInvenTory</span>
+        <footer th:fragment="footer" class="footer">
+            <span>Posted by: Charles Mitchell</span>
         </footer>
 
     </body>
