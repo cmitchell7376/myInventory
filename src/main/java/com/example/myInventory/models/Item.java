@@ -14,7 +14,7 @@ public class Item{
         this.name = name;
         this.itemNumber = itemNumber;
         this.totalQty = totalQty;
-        available = 0;
+        available = totalQty;
         outGoing = 0;
         this.price = price;
     }
