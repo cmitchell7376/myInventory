@@ -10,7 +10,28 @@ public class Inventory {
 
     public Inventory(){ }
     public Inventory(String name){
+        this.name = name;
         items = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public void addItem(Item item){

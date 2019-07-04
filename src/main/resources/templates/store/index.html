@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments :: head"></head>
+    <body>
+        <nav th:replace="fragments :: nav"></nav>
+
+        <h1 class="index-title" th:text="${title}">Stores owner owens</h1>
+
+        <header class="nav-border side-nav">
+            <nav class="nav flex-column">
+                <span class="side-link">
+                    <a class="nav-link" href="/store/add">
+                        <img th:src="@{images/addStore.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Add Store</span>
+                    </a>
+                </span>
+                <span class="side-link">
+                    <a class="nav-link" href="/store/remove">
+                        <img th:src="@{images/removeStore.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">remove Store</span>
+                    </a>
+                </span>
+            </nav>
+        </header>
+
+        <div class="table-border">
+            <ul th:each="store : ${stores}">
+                <li>
+                    <a href="#">
+                        <u><h4 th:text="${store.name}" style="padding-top: 5px;"></h4></u>
+                    </a>
+                    <span th:text="${store.streetAddress}"></span>,
+                    <span  th:text="${store.city}"></span>,
+                    <span  th:text="${store.state}"></span>,
+                    <span  th:text="${store.zip}"></span>,
+                    <span  th:text="${store.phoneNumber}"></span>
+                </li>
+            </ul>
+        </div>
+        <footer th:replace="fragments :: footer"></footer>
+    </body>
+</html>

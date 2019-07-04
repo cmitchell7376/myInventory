@@ -10,10 +10,16 @@
 
 .footer{
     background-color: gray;
+    color: white;
 }
 
-.table{
-
+.footer2{
+    background-color: grey;
+    bottom: 0px;
+    position:absolute;
+    bottom:0;
+    width: 100%;
+    color: white;
 }
 
 .table-border{
@@ -21,7 +27,22 @@
     position: absolute;
     width: 800px;
     left: 300px;
-    top: 70px;
+    top: 110px;
     overflow-y:scroll;
-    height:500px;
+    height:490px;
+}
+
+.index-title{
+    position: absolute;
+    left: 300px;
+    padding-top: 5px;
+}
+
+.nav-border{
+    border-right: 1px solid black;
+}
+
+.form-border{
+   border: 1px solid black;
+   width: 200px;
 }

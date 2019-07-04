@@ -4,29 +4,31 @@
     <body>
         <nav th:replace="fragments :: nav"></nav>
 
-        <header class="border-right side-nav">
+        <h1 class="index-title">Store Title Inventory</h1>
+
+        <header class="nav-border side-nav">
             <nav class="nav flex-column">
                 <span class="side-link">
                     <a class="nav-link" href="#">
-                        <img th:src="@{orderImage.png}" height="42" width="42" alt="Not Found" />
+                        <img th:src="@{images/orderImage.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Orders</span>
                     </a>
                 </span>
                 <span class="side-link">
                     <a class="nav-link" href="#">
-                        <img th:src="@{addImage.png}" height="42" width="42" alt="Not Found" />
+                        <img th:src="@{images/addImage.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Add Item</span>
                     </a>
                 </span>
                 <span class="side-link">
                     <a class="nav-link" href="#">
-                        <img th:src="@{removeItem.png}" height="42" width="42" alt="Not Found" />
+                        <img th:src="@{images/removeItem.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Remove Item</span>
                     </a>
                 </span>
                 <span class="side-link">
                     <a class="nav-link" href="#">
-                        <img th:src="@{receiptImage.png}" height="42" width="42" alt="Not Found" />
+                        <img th:src="@{images/receiptImage.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Receipts</span>
                     </a>
                 </span>
@@ -36,23 +38,24 @@
         <div class="table-border">
             <table class="table ">
                 <tr>
-                    <th>Name</th>
-                    <th>Qty</th>
+                    <th>Product</th>
+                    <th>Barcode</th>
+                    <th>Quantity</th>
                     <th>Available</th>
-                    <th>Outgoing</th>
+                    <th>Location</th>
                     <th>Price</th>
                 </tr>
 
                 <tr>
                     <td th:text="${item.name}"></td>
+                    <td th:text="${item.barCode}"></td>
                     <td th:text="${item.totalQty}"></td>
                     <td th:text="${item.available}"></td>
-                    <td th:text="${item.outGoing}"></td>
+                    <td th:text="${item.location}"></td>
                     <td th:text="${item.price}"></td>
                 </tr>
             </table>
         </div>
-
         <footer th:replace="fragments :: footer"></footer>
     </body>
 </html>

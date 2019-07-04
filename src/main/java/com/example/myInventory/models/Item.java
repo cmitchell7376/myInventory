@@ -3,19 +3,19 @@ package com.example.myInventory.models;
 public class Item{
     private int id;
     private String name;
-    private String itemNumber;
+    private String barCode;
     private int totalQty;
     private int available;
-    private int outGoing;
+    private String location;
     private double price;
 
     public Item(){ }
-    public Item(String name, String itemNumber, int totalQty, double price){
+    public Item(String name, String barCode, int totalQty, String location, double price){
         this.name = name;
-        this.itemNumber = itemNumber;
+        this.barCode = barCode;
         this.totalQty = totalQty;
         available = totalQty;
-        outGoing = 0;
+        this.location = location;
         this.price = price;
     }
 
@@ -27,8 +27,8 @@ public class Item{
         return name;
     }
 
-    public String getItemNumber() {
-        return itemNumber;
+    public String getBarCode() {
+        return barCode;
     }
 
     public int getTotalQty() {
@@ -39,8 +39,8 @@ public class Item{
         return available;
     }
 
-    public int getOutGoing() {
-        return outGoing;
+    public String getLocation() {
+        return location;
     }
 
     public double getPrice() {
@@ -52,8 +52,8 @@ public class Item{
         this.name = name;
     }
 
-    public void setItemNumber(String itemNumber) {
-        this.itemNumber = itemNumber;
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
     public void setTotalQty(int totalQty) {
@@ -64,8 +64,8 @@ public class Item{
         this.available = available;
     }
 
-    public void setOutGoing(int outGoing) {
-        this.outGoing = outGoing;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public void setPrice(double price) {
