@@ -1,6 +1,8 @@
 package com.example.myInventory.controllers;
 
+import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Store;
+import com.example.myInventory.models.data.StoreData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,12 +18,10 @@ import java.util.ArrayList;
 @RequestMapping("store")
 public class HomeController {
 
-    ArrayList<Store>stores = new ArrayList<>();
-
     @RequestMapping(value = "")
     public String index(Model model){
         model.addAttribute("title","Username Stores");
-        model.addAttribute("stores",stores);
+        model.addAttribute("stores", StoreData.getAll());
         return "store/index";
     }
 
@@ -34,14 +34,17 @@ public class HomeController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddStoreForm(@ModelAttribute @Valid Store store, Errors errors, Model model){
+    public String processAddStoreForm(@ModelAttribute @Valid Store store, Errors errors, Model model,
+                                      @RequestParam String inventoryName){
 
         if(errors.hasErrors()){
             model.addAttribute("title","Add a Store");
             return "store/add";
         }
 
-        stores.add(store);
+        Inventory inventory = new Inventory(inventoryName);
+        store.setInventory(inventory);
+        StoreData.add(store);
 
         return "redirect:";
     }
@@ -50,13 +53,16 @@ public class HomeController {
     public String removeStore(Model model){
 
         model.addAttribute("title","Remove Stores");
-        model.addAttribute("stores",stores);
+        model.addAttribute("stores",StoreData.getAll());
         return "store/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public  String processRemoveStore(Model model, @RequestParam int [] storeId){
-        stores.remove(storeId);
+    public  String processRemoveStore(Model model, @RequestParam int [] storeIds){
+
+        for (int storeId : storeIds){
+            StoreData.remove(storeId);
+        }
         return "redirect:";
     }
 }

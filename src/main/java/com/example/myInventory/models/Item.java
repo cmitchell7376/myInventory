@@ -1,7 +1,9 @@
 package com.example.myInventory.models;
 
 public class Item{
-    private int id;
+    private int itemId;
+    private static int nextId = 1;
+
     private String name;
     private String barCode;
     private int totalQty;
@@ -9,8 +11,8 @@ public class Item{
     private String location;
     private double price;
 
-    public Item(){ }
     public Item(String name, String barCode, int totalQty, String location, double price){
+        this();
         this.name = name;
         this.barCode = barCode;
         this.totalQty = totalQty;
@@ -19,8 +21,13 @@ public class Item{
         this.price = price;
     }
 
-    public int getId() {
-        return id;
+    public Item(){
+        itemId = nextId;
+        nextId++;
+    }
+
+    public int getItemId() {
+        return itemId;
     }
 
     public String getName() {

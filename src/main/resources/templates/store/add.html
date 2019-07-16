@@ -4,7 +4,7 @@
     <body>
         <nav th:replace="fragments :: nav"></nav>
 
-            <div style="min-height: calc(100vh - 70px); width: 400px; margin: auto; padding-bottom: 20px;">
+            <div class="add-form">
                 <h3 th:text="${title}">Default title</h3>
 
                 <form method="post" th:object="${store}">
@@ -38,10 +38,14 @@
                         <input class="form-control" th:field="*{phoneNumber}"/>
                     </div>
 
+                    <div class="form-group">
+                        <label th:for="inventoryName">Inventory Name</label>
+                        <input class="form-control" type="text" name="inventoryName" id="inventoryName" />
+                    </div>
+
                     <input type="submit" value="Add Store"/>
                 </form>
             </div>
-
         <footer style="height: 30px; background-color: grey; color: white;">Posted by Charles Mitchell</footer>
 
     </body>

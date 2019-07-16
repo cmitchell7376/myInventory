@@ -10,8 +10,8 @@
             <div class="table-border">
                 <form method="post" th:object="${store}">
                     <div th:each="store : ${stores}">
-                        <input type="checkbox" name="storeId" th:value="${store.id}" th:id="${store.id}" />
-                        <label th:for="${store.id}" th:text="${store.name}"></label>
+                        <input type="checkbox" name="storeIds" th:value="${store.getStoreId()}" th:id="${store.getStoreId()}" />
+                        <label th:for="${store.getStoreId()}" th:text="${store.name}"></label>
                     </div>
                     <input type="submit" value="Remove store"/>
                 </form>

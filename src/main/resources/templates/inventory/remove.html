@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav"></nav>
+
+<div style="min-height: calc(100vh - 70px); width: 400px; margin: auto; padding-bottom: 20px;">
+    <h3 th:text="${title}">Default title</h3>
+
+    <div class="table-border">
+        <form method="post" action="/inventory/remove">
+            <div th:each="item : ${items}">
+                <input type="checkbox" name="itemIds" th:value="${item.itemId}" th:id="${item.getItemId()}" />
+                <input type="hidden" th:value="${storeId}" name="storeId"/>
+                <label th:for="${item.getItemId()}" th:text="${item.name}"></label>
+            </div>
+            <input type="submit" value="Remove store"/>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

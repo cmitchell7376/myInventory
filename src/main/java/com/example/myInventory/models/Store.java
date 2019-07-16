@@ -3,7 +3,9 @@ package com.example.myInventory.models;
 import javax.validation.constraints.NotNull;
 
 public class Store {
-    private int id;
+
+    private int storeId;
+    private static int nextId = 1;
 
     @NotNull
     private String name;
@@ -24,9 +26,9 @@ public class Store {
     private Inventory inventory;
     private User user;
 
-    public Store (){ }
     public Store (String name, String streetAddress, String city, String state, String zip,
                   String phoneNumber){
+        this();
         this.name = name;
         this.streetAddress = streetAddress;
         this.city = city;
@@ -35,8 +37,13 @@ public class Store {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
-        return id;
+    public Store (){
+        storeId = nextId;
+        nextId++;
+    }
+
+    public int getStoreId() {
+        return storeId;
     }
 
     public String getName() {
