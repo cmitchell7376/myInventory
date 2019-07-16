@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 @Controller
 @RequestMapping("store")
@@ -20,8 +18,10 @@ public class HomeController {
 
     @RequestMapping(value = "")
     public String index(Model model){
+
         model.addAttribute("title","Username Stores");
         model.addAttribute("stores", StoreData.getAll());
+
         return "store/index";
     }
 
@@ -30,6 +30,7 @@ public class HomeController {
 
         model.addAttribute("title","Add a Store");
         model.addAttribute(new Store());
+
         return "store/add";
     }
 
@@ -54,6 +55,7 @@ public class HomeController {
 
         model.addAttribute("title","Remove Stores");
         model.addAttribute("stores",StoreData.getAll());
+
         return "store/remove";
     }
 

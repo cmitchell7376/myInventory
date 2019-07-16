@@ -1,6 +1,5 @@
 package com.example.myInventory.controllers;
 
-import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
 import com.example.myInventory.models.data.InventoryData;
@@ -9,10 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("inventory")
@@ -25,6 +21,7 @@ public class InventoryController {
         model.addAttribute("items",store.getInventory().getItems());
         model.addAttribute("store",store);
         model.addAttribute("title",store.getInventory().getName()+" Inventory");
+
         return "inventory/index";
     }
 
@@ -34,6 +31,7 @@ public class InventoryController {
         model.addAttribute(new Item());
         model.addAttribute("storeId",id);
         model.addAttribute("title","Add item");
+
         return "inventory/add";
     }
 
@@ -42,6 +40,7 @@ public class InventoryController {
 
         Store store = StoreData.getById(storeId);
         store.getInventory().addItem(item);
+
         return "redirect:?id=" + storeId;
     }
 
@@ -51,6 +50,7 @@ public class InventoryController {
         model.addAttribute("title","Remove Stores");
         model.addAttribute("items",StoreData.getById(id).getInventory().getItems());
         model.addAttribute("storeId",id);
+
         return "inventory/remove";
     }
 
