@@ -50,7 +50,11 @@
                     <td th:text="${item.barCode}"></td>
                     <td th:text="${item.totalQty}"></td>
                     <td th:text="${item.available}"></td>
-                    <td th:text="${item.location}"></td>
+                    <td>
+                        <a th:href="@{/location/{name}/store(name=${item.location},id=${store.storeId})}">
+                            <span th:text="${item.location}"></span>
+                        </a>
+                    </td>
                     <td th:text="${item.price}"></td>
                 </tr>
             </table>

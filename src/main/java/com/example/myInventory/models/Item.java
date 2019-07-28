@@ -21,6 +21,12 @@ public class Item{
         this.price = price;
     }
 
+    public Item(String name, double price){
+        this();
+        this.name = name;
+        this.price = price;
+    }
+
     public Item(){
         itemId = nextId;
         nextId++;

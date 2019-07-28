@@ -2,22 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
     <head th:replace="fragments :: head"></head>
     <body>
-        <nav th:replace="fragments :: nav"></nav>
+        <div id="page-container">
+            <div id="content-wrap">
+                <nav th:replace="fragments :: nav"></nav>
 
-        <div style="min-height: calc(100vh - 70px); width: 400px; margin: auto; padding-bottom: 20px;">
-            <h3 th:text="${title}">Default title</h3>
+                <div style="min-height: calc(100vh - 70px); width: 400px; margin: auto; padding-bottom: 20px;">
+                    <h3 th:text="${title}">Default title</h3>
 
-            <div class="table-border">
-                <form method="post" th:object="${store}">
-                    <div th:each="store : ${stores}">
-                        <input type="checkbox" name="storeIds" th:value="${store.getStoreId()}" th:id="${store.getStoreId()}" />
-                        <label th:for="${store.getStoreId()}" th:text="${store.name}"></label>
+                    <div class="table-border">
+                        <form method="post" th:object="${store}">
+                            <div th:each="store : ${stores}">
+                                <input type="checkbox" name="storeIds" th:value="${store.getStoreId()}" th:id="${store.getStoreId()}" />
+                                <label th:for="${store.getStoreId()}" th:text="${store.name}"></label>
+                            </div>
+                            <input type="submit" value="Remove store"/>
+                        </form>
                     </div>
-                    <input type="submit" value="Remove store"/>
-                </form>
+                </div>
             </div>
+            <footer th:replace="fragments :: footer"></footer>
         </div>
-
-        <footer style="height: 30px; background-color: grey; color: white;">Posted by Charles Mitchell</footer>
     </body>
 </html>

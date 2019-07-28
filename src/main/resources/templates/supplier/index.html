@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments :: head"></head>
+        <body>
+            <nav th:replace="fragments :: nav"></nav>
+
+            <h1  class="index-title" th:text="${title}">Stores owner owens</h1>
+
+            <div class="table-border">
+                <ul th:each="supplier : ${suppliers}">
+                    <li>
+                        <a th:href="@{#}">
+                            <u><h4 th:text="${supplier.name}" style="padding-top: 5px;"></h4></u>
+                        </a>
+                        <span th:text="${supplier.streetAddress}"></span>,
+                        <span th:text="${supplier.city}"></span>,
+                        <span th:text="${supplier.state}"></span>,
+                        <span th:text="${supplier.zip}"></span>,
+                        <div>Distributor Type:
+                            <span th:text="${supplier.type}"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <footer th:replace="fragments :: footer"></footer>
+
+        </body>
+</html>

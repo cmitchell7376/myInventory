@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments :: head"></head>
+    <body>
+        <div id="page-container">
+            <div id="content-wrap">
+                <nav th:replace="fragments :: nav"></nav>
+
+                <h1 th:text="${title}" class="index-title"></h1>
+
+                <div class="table-border">
+                    <table class="table ">
+                        <tr>
+                            <th>Product</th>
+                            <th>Barcode</th>
+                            <th>Quantity</th>
+                            <th>Available</th>
+                            <th>Location</th>
+                            <th>Price</th>
+                        </tr>
+                        <tr th:each="item : ${items}">
+                            <td th:text="${item.name}"></td>
+                            <td th:text="${item.barCode}"></td>
+                            <td th:text="${item.totalQty}"></td>
+                            <td th:text="${item.available}"></td>
+                            <td th:text="${item.location}">
+                            </td>
+                            <td th:text="${item.price}"></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <footer th:replace="fragments :: footer"></footer>
+        </div>
+
+    </body>
+</html>
