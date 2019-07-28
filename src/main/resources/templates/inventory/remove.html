@@ -10,11 +10,11 @@
     <div class="table-border">
         <form method="post" action="/inventory/remove">
             <div th:each="item : ${items}">
-                <input type="checkbox" name="itemIds" th:value="${item.itemId}" th:id="${item.getItemId()}" />
-                <input type="hidden" th:value="${storeId}" name="storeId"/>
+                <input phoneNumber="checkbox" name="itemIds" th:value="${item.itemId}" th:id="${item.getItemId()}" />
+                <input phoneNumber="hidden" th:value="${storeId}" name="storeId"/>
                 <label th:for="${item.getItemId()}" th:text="${item.name}"></label>
             </div>
-            <input type="submit" value="Remove store"/>
+            <input phoneNumber="submit" value="Remove store"/>
         </form>
     </div>
 </div>

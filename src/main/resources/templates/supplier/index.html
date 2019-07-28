@@ -6,21 +6,42 @@
 
             <h1  class="index-title" th:text="${title}">Stores owner owens</h1>
 
+            <div class="nav-border side-nav">
+                <nav class="nav flex-column">
+                <span class="side-link">
+                    <a class="nav-link" href="/supplier/add">
+                        <img th:src="@{/images/addStore.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Add Supplier</span>
+                    </a>
+                </span>
+                    <span class="side-link">
+                    <a class="nav-link" href="/supplier/remove">
+                        <img th:src="@{/images/removeStore.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">remove Supplier</span>
+                    </a>
+                </span>
+                </nav>
+            </div>
+
             <div class="table-border">
-                <ul th:each="supplier : ${suppliers}">
-                    <li>
-                        <a th:href="@{#}">
-                            <u><h4 th:text="${supplier.name}" style="padding-top: 5px;"></h4></u>
-                        </a>
-                        <span th:text="${supplier.streetAddress}"></span>,
-                        <span th:text="${supplier.city}"></span>,
-                        <span th:text="${supplier.state}"></span>,
-                        <span th:text="${supplier.zip}"></span>,
-                        <div>Distributor Type:
-                            <span th:text="${supplier.type}"></span>
-                        </div>
-                    </li>
-                </ul>
+                <table class="table ">
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Phone Number</th>
+                        <th>Street Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                    </tr>
+                    <tr th:each="supplier : ${suppliers}">
+                        <td th:text="${supplier.name}"></td>
+                        <td th:text="${supplier.phoneNumber}"></td>
+                        <td th:text="${supplier.streetAddress}"></td>
+                        <td th:text="${supplier.city}"></td>
+                        <td th:text="${supplier.state}"></td>
+                        <td th:text="${supplier.zip}"></td>
+                    </tr>
+                </table>
             </div>
 
             <footer th:replace="fragments :: footer"></footer>

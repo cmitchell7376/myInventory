@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div id="page-container">
+    <div id="content-wrap">
+        <nav th:replace="fragments :: nav"></nav>
+
+        <div style="min-height: calc(100vh - 70px); width: 400px; margin: auto; padding-bottom: 20px;">
+            <h3 th:text="${title}">Default title</h3>
+
+            <div class="table-border">
+                <form method="post">
+                    <div th:each="supplier : ${suppliers}">
+                        <input type="checkbox" name="supplierIds" th:value="${supplier.getSupplierId()}"
+                               th:id="${supplier.getSupplierId()}" />
+                        <label th:for="${supplier.getSupplierId()}" th:text="${supplier.name}"></label>
+                    </div>
+                    <input type="submit" value="Remove supplier"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="fragments :: footer"></footer>
+</div>
+</body>
+</html>

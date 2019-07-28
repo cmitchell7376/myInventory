@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div id="page-container">
+    <div id="content-wrap">
+        <nav th:replace="fragments :: nav"></nav>
+
+        <div class="add-form">
+            <h3 th:text="${title}">Default title</h3>
+
+            <form method="post" th:object="${supplier}">
+                <div class="form-group">
+                    <label th:for="name">Company Name</label>
+                    <input class="form-control" th:field="*{name}" />
+                </div>
+
+                <div class="form-group">
+                    <label th:for="streetAddress">Phone Number</label>
+                    <input class="form-control" th:field="*{phoneNumber}"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="city">Street Address</label>
+                    <input class="form-control" th:field="*{streetAddress}"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="state">City</label>
+                    <input class="form-control" th:field="*{city}"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="zip">State</label>
+                    <input class="form-control" th:field="*{state}"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="phoneNumber">Area code</label>
+                    <input class="form-control" th:field="*{zip}"/>
+                </div>
+
+                <input type="submit" value="Add Supplier"/>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="fragments :: footer"></footer>
+</div>
+</body>
+</html>

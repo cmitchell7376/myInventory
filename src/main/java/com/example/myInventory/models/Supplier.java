@@ -6,17 +6,17 @@ public class Supplier {
     private static int nextId = 0;
 
     private String name;
-    private String type;
+    private String phoneNumber;
     private String streetAddress;
     private String city;
     private String state;
     private String zip;
     private Inventory inventory;
 
-    public Supplier(String name,String type,String streetAddress,String city,String state,String zip){
+    public Supplier(String name, String phoneNumber, String streetAddress, String city, String state, String zip){
         this();
         this.name = name;
-        this.type = type;
+        this.phoneNumber = phoneNumber;
         this.streetAddress = streetAddress;
         this. city = city;
         this.state = state;
@@ -25,12 +25,16 @@ public class Supplier {
 
     public Supplier(){ }
 
+    public int getSupplierId(){
+        return supplierId;
+    }
+
     public String getName() {
         return name;
     }
 
-    public String getType() {
-        return type;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getStreetAddress() {
@@ -57,8 +61,8 @@ public class Supplier {
         this.name = name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setStreetAddress(String streetAddress) {
