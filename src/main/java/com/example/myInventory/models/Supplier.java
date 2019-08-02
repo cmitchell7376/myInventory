@@ -1,11 +1,15 @@
 package com.example.myInventory.models;
 
+import javax.validation.constraints.NotNull;
+
 public class Supplier {
 
     private int supplierId;
     private static int nextId = 0;
 
+    @NotNull
     private String name;
+
     private String phoneNumber;
     private String streetAddress;
     private String city;
