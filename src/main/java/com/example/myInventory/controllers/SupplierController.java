@@ -1,7 +1,6 @@
 package com.example.myInventory.controllers;
 
 import com.example.myInventory.models.Supplier;
-import com.example.myInventory.models.data.StoreData;
 import com.example.myInventory.models.data.SupplierData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

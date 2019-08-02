@@ -18,6 +18,7 @@ public class LocationController {
 
     @RequestMapping(value = "{name}/store", method = RequestMethod.GET)
     public String index(Model model, @PathVariable String name, @RequestParam int id){
+
         Store store = StoreData.getById(id);
         ArrayList<Item> items = store.getInventory().getItems();
         ArrayList<Item> locationArray = new ArrayList<>();
