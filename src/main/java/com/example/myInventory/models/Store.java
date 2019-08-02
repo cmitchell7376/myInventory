@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 public class Store {
 
     private int storeId;
-    private static int nextId = 1;
+    private static int nextId = 0;
 
     @NotNull
     private String name;
@@ -26,6 +26,11 @@ public class Store {
     private Inventory inventory;
     private User user;
 
+    public Store (){
+        storeId = nextId;
+        nextId++;
+    }
+
     public Store (String name, String streetAddress, String city, String state, String zip,
                   String phoneNumber){
         this();
@@ -37,10 +42,6 @@ public class Store {
         this.phoneNumber = phoneNumber;
     }
 
-    public Store (){
-        storeId = nextId;
-        nextId++;
-    }
 
     public int getStoreId() {
         return storeId;

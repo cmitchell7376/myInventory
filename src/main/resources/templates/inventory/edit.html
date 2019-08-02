@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments :: head"></head>
+    <body>
+        <nav th:replace="fragments :: nav"></nav>
+
+        <div id="page-container">
+            <div id="content-wrap">
+                <div class="add-form">
+
+                    <h1 th:text="${title}"></h1>
+
+                    <form method="post" th:object="${item}" action="/inventory/edit">
+                        <div class="form-group">
+                            <label th:for="name">Name</label>
+                            <input class="form-control" th:field="*{name}" value="*{name}"/>
+                        </div>
+                        <div class="form-group">
+                            <label th:for="barCode">Barcode</label>
+                            <input class="form-control" th:field="*{barCode}" value="*{barCode}"/>
+                        </div>
+                        <div class="form-group">
+                            <label th:for="totalQty">Quantity</label>
+                            <input class="form-control" th:field="*{totalQty}" value="*{totalQty}"/>
+                        </div>
+                        <div class="form-group">
+                            <label th:for="available">Available</label>
+                            <input class="form-control" th:field="*{available}" value="*{available}"/>
+                        </div>
+                        <div class="form-group">
+                            <label th:for="location">Location</label>
+                            <input class="form-control" th:field="*{location}" value="*{location}"/>
+                        </div>
+                        <div class="form-group">
+                            <label th:for="price">Price per unit</label>
+                            <input class="form-control" th:field="*{price}" value="*{price}"/>
+                        </div>
+
+                        <input type="hidden" th:value="${storeId}" name="storeId"/>
+                        <input type="hidden" th:value="${item.itemId}" name="itemId"/>
+                        <input type="submit" value="Update"/>
+                    </form>
+                </div>
+            </div>
+
+            <footer th:replace="fragments :: footer"></footer>
+        </div>
+    </body>
+</html>

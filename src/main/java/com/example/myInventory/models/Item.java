@@ -2,7 +2,7 @@ package com.example.myInventory.models;
 
 public class Item{
     private int itemId;
-    private static int nextId = 1;
+    private  int nextId = 0;
 
     private String name;
     private String barCode;

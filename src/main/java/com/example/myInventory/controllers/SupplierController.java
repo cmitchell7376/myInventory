@@ -6,10 +6,7 @@ import com.example.myInventory.models.data.SupplierData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -63,6 +60,26 @@ public class SupplierController {
         for (int supplierId : supplierIds){
             SupplierData.remove(supplierId);
         }
+        return "redirect:";
+    }
+
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+    public String editSupplier(Model model,@PathVariable int id){
+        Supplier supplier = SupplierData.getById(id);
+        model.addAttribute("supplier",supplier);
+        model.addAttribute("title","Edit " + supplier.getName());
+        return "supplier/edit";
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public String processEdit(Model model, @RequestParam int id, @ModelAttribute Supplier newSupplier){
+        Supplier supplier = SupplierData.getById(id);
+        supplier.setName(newSupplier.getName());
+        supplier.setPhoneNumber(newSupplier.getPhoneNumber());
+        supplier.setStreetAddress(newSupplier.getStreetAddress());
+        supplier.setCity(newSupplier.getCity());
+        supplier.setState(newSupplier.getState());
+        supplier.setZip(newSupplier.getZip());
         return "redirect:";
     }
 }

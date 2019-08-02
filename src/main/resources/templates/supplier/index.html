@@ -34,7 +34,11 @@
                         <th>Zip</th>
                     </tr>
                     <tr th:each="supplier : ${suppliers}">
-                        <td th:text="${supplier.name}"></td>
+                        <td>
+                            <a th:href="@{/supplier/edit/{supplierId}(supplierId=${supplier.supplierId})}">
+                                <span th:text="${supplier.name}"></span>
+                            </a>
+                        </td>
                         <td th:text="${supplier.phoneNumber}"></td>
                         <td th:text="${supplier.streetAddress}"></td>
                         <td th:text="${supplier.city}"></td>

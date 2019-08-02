@@ -11,7 +11,6 @@ public class Supplier {
     private String city;
     private String state;
     private String zip;
-    private Inventory inventory;
 
     public Supplier(String name, String phoneNumber, String streetAddress, String city, String state, String zip){
         this();
@@ -53,9 +52,6 @@ public class Supplier {
         return zip;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -79,9 +75,5 @@ public class Supplier {
 
     public void setZip(String zip) {
         this.zip = zip;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
     }
 }
