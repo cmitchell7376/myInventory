@@ -1,6 +1,7 @@
 package com.example.myInventory.models;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Supplier {
 
@@ -8,6 +9,7 @@ public class Supplier {
     private static int nextId = 0;
 
     @NotNull
+    @Size(min = 1, max = 100,message = "field empty")
     private String name;
 
     private String phoneNumber;

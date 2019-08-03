@@ -14,6 +14,7 @@
                         <div class="form-group">
                             <label th:for="name">Name</label>
                             <input class="form-control" th:field="*{name}"/>
+                            <span th:errors="*{name}" class="error"></span>
                         </div>
                         <div class="form-group">
                             <label th:for="barCode">Barcode</label>
@@ -22,6 +23,7 @@
                         <div class="form-group">
                             <label th:for="totalQty">Quantity</label>
                             <input class="form-control" th:field="*{totalQty}"/>
+                            <span th:errors="*{totalQty}" class="error"></span>
                         </div>
                         <div class="form-group">
                             <label th:for="available">Available</label>

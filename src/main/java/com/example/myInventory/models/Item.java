@@ -1,11 +1,20 @@
 package com.example.myInventory.models;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Item{
     private int itemId;
     private  int nextId = 0;
 
+    @NotNull
+    @Size(min = 1, max = 100, message = "field empty")
     private String name;
+
     private String barCode;
+    @NotNull
+    @Min(value = 0,message = "field empty")
     private int totalQty;
     private int available;
     private String location;

@@ -7,6 +7,7 @@ import com.example.myInventory.models.data.ItemData;
 import com.example.myInventory.models.data.StoreData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
@@ -36,7 +37,14 @@ public class InventoryController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddItemForm(Model model,@ModelAttribute @Valid Item item,@RequestParam int storeId){
+    public String processAddItemForm(Model model, @ModelAttribute @Valid Item item, Errors errors,@RequestParam int storeId){
+
+        if(errors.hasErrors()){
+            model.addAttribute("storeId",storeId);
+            model.addAttribute("title","Add item");
+
+            return "inventory/add";
+        }
 
         Store store = StoreData.getById(storeId);
         store.getInventory().addItem(item);

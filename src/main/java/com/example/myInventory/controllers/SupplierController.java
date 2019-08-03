@@ -36,7 +36,7 @@ public class SupplierController {
 
         if(errors.hasErrors()){
             model.addAttribute("title","Add a Supplier");
-            return "store/add";
+            return "supplier/add";
         }
 
         SupplierData.add(supplier);

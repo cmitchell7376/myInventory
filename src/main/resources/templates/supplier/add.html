@@ -12,6 +12,7 @@
             <form method="post" th:object="${supplier}">
                 <div class="form-group">
                     <label th:for="name">Company Name</label>
+                    <span class="required">*</span>
                     <input class="form-control" th:field="*{name}" />
                     <span th:errors="*{name}" class="error"></span>
                 </div>
@@ -37,7 +38,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label th:for="phoneNumber">Area code</label>
+                    <label th:for="phoneNumber">Zip code</label>
                     <input class="form-control" th:field="*{zip}"/>
                 </div>
 
