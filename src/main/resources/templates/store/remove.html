@@ -6,14 +6,14 @@
             <div id="content-wrap">
                 <nav th:replace="fragments :: nav"></nav>
 
-                <div style="min-height: calc(100vh - 70px); width: 400px; margin: auto; padding-bottom: 20px;">
+                <div class="removeWindow">
                     <h3 th:text="${title}">Default title</h3>
 
                     <div class="table-border">
                         <form method="post" th:object="${store}">
                             <div th:each="store : ${stores}">
-                                <input type="checkbox" name="storeIds" th:value="${store.getStoreId()}" th:id="${store.getStoreId()}" />
-                                <label th:for="${store.getStoreId()}" th:text="${store.name}"></label>
+                                <input type="checkbox" name="storeIds" th:value="${store.getId()}" th:id="${store.getId()}" />
+                                <label th:for="${store.getId()}" th:text="${store.name}"></label>
                             </div>
                             <input type="submit" value="Remove store"/>
                         </form>

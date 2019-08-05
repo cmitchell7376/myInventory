@@ -35,7 +35,7 @@
                     </tr>
                     <tr th:each="supplier : ${suppliers}">
                         <td>
-                            <a th:href="@{/supplier/edit/{supplierId}(supplierId=${supplier.supplierId})}">
+                            <a th:href="@{/supplier/edit/{supplierId}(supplierId=${supplier.id})}">
                                 <span th:text="${supplier.name}"></span>
                             </a>
                         </td>

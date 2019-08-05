@@ -1,12 +1,15 @@
 package com.example.myInventory.models;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Store {
 
-    private int storeId;
-    private static int nextId = 0;
+    @Id
+    @GeneratedValue
+    private int id;
 
     @NotNull
     @Size(min = 1, max = 100, message = "Field empty")
@@ -29,17 +32,14 @@ public class Store {
     private String zip;
 
     private String phoneNumber;
-    private Inventory inventory;
-    private User user;
 
-    public Store (){
-        storeId = nextId;
-        nextId++;
-    }
+    @ManyToOne
+    private Inventory inventory;
+
+    public  Store(){}
 
     public Store (String name, String streetAddress, String city, String state, String zip,
                   String phoneNumber){
-        this();
         this.name = name;
         this.streetAddress = streetAddress;
         this.city = city;
@@ -48,9 +48,8 @@ public class Store {
         this.phoneNumber = phoneNumber;
     }
 
-
-    public int getStoreId() {
-        return storeId;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -59,10 +58,6 @@ public class Store {
 
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     public String getStreetAddress() {
@@ -92,10 +87,6 @@ public class Store {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public void setStreetAddress(String streetAddress) {

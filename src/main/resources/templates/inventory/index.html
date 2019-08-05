@@ -9,13 +9,13 @@
         <header class="nav-border side-nav">
             <nav class="nav flex-column">
                 <span class="side-link">
-                    <a class="nav-link" th:href="@{/inventory/add/{id}(id=${store.storeId})}">
+                    <a class="nav-link" th:href="@{/inventory/add/{id}(id=${store.id})}">
                         <img th:src="@{/images/addImage.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Add Item</span>
                     </a>
                 </span>
                 <span class="side-link">
-                    <a class="nav-link" th:href="@{/inventory/remove/{id}(id=${store.storeId})}">
+                    <a class="nav-link" th:href="@{/inventory/remove/{id}(id=${store.id})}">
                         <img th:src="@{/images/removeItem.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Remove Item</span>
                     </a>
@@ -35,7 +35,7 @@
                 </tr>
                 <tr th:each="item : ${items}">
                     <td>
-                        <a th:href="@{/inventory/edit/{itemId}/store(itemId=${item.itemId},id=${store.storeId})}">
+                        <a th:href="@{/inventory/edit/{itemId}/store(itemId=${item.id},id=${store.id})}">
                             <span th:text="${item.name}"></span>
                         </a>
                     </td>
@@ -43,7 +43,7 @@
                     <td th:text="${item.totalQty}"></td>
                     <td th:text="${item.available}"></td>
                     <td>
-                        <a th:href="@{/location/{name}/store(name=${item.location},id=${store.storeId})}">
+                        <a th:href="@{/location/{name}/store(name=${item.location},id=${store.id})}">
                             <span th:text="${item.location}"></span>
                         </a>
                     </td>

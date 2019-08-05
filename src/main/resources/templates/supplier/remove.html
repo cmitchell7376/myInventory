@@ -6,15 +6,15 @@
     <div id="content-wrap">
         <nav th:replace="fragments :: nav"></nav>
 
-        <div style="min-height: calc(100vh - 70px); width: 400px; margin: auto; padding-bottom: 20px;">
+        <div class="removeWindow">
             <h3 th:text="${title}">Default title</h3>
 
             <div class="table-border">
                 <form method="post">
                     <div th:each="supplier : ${suppliers}">
-                        <input type="checkbox" name="supplierIds" th:value="${supplier.getSupplierId()}"
-                               th:id="${supplier.getSupplierId()}" />
-                        <label th:for="${supplier.getSupplierId()}" th:text="${supplier.name}"></label>
+                        <input type="checkbox" name="supplierIds" th:value="${supplier.getId()}"
+                               th:id="${supplier.getId()}" />
+                        <label th:for="${supplier.getId()}" th:text="${supplier.name}"></label>
                     </div>
                     <input type="submit" value="Remove supplier"/>
                 </form>

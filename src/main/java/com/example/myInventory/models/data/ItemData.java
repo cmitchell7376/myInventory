@@ -1,16 +1,19 @@
 package com.example.myInventory.models.data;
 
 import com.example.myInventory.models.Item;
-
-import java.util.ArrayList;
+import com.example.myInventory.models.Store;
+import java.util.List;
 
 public class ItemData {
 
-    public static Item getItem(int id, int storeId){
-        ArrayList<Item> items = StoreData.getById(storeId).getInventory().getItems();
+
+    private static StoreDao storeDao;
+
+    public static Item getItem(int id, Store store){
+        List<Item> items = store.getInventory().getItems();
         Item newItem = new Item();
         for (Item item: items) {
-            if(item.getItemId() == id){
+            if(item.getId() == id){
                 newItem = item;
             }
         }

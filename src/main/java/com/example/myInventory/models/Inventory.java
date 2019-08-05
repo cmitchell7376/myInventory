@@ -1,14 +1,31 @@
 package com.example.myInventory.models;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Inventory {
+
+    @Id
+    @GeneratedValue
     private int id;
+
+    @NotNull
+    @Size(min=3, max=15)
     private String name;
-    private ArrayList<Item>items = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "inventory_id")
+    private List<Store>stores;
+
+    @ManyToMany
+    private List<Item>items;
 
     public Inventory(){ }
+
     public Inventory(String name){
         this.name = name;
     }
@@ -21,7 +38,7 @@ public class Inventory {
         return name;
     }
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 

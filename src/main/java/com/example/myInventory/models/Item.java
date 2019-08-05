@@ -1,27 +1,41 @@
 package com.example.myInventory.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
+@Entity
 public class Item{
-    private int itemId;
-    private  int nextId = 0;
+
+    @Id
+    @GeneratedValue
+    private int id;
 
     @NotNull
     @Size(min = 1, max = 100, message = "field empty")
     private String name;
 
     private String barCode;
+
     @NotNull
     @Min(value = 0,message = "field empty")
     private int totalQty;
+
     private int available;
     private String location;
     private double price;
 
+    @ManyToMany(mappedBy = "items")
+    private List<Inventory> inventories;
+
+    public Item(){ }
+
     public Item(String name, String barCode, int totalQty, String location, double price){
-        this();
         this.name = name;
         this.barCode = barCode;
         this.totalQty = totalQty;
@@ -31,18 +45,12 @@ public class Item{
     }
 
     public Item(String name, double price){
-        this();
         this.name = name;
         this.price = price;
     }
 
-    public Item(){
-        itemId = nextId;
-        nextId++;
-    }
-
-    public int getItemId() {
-        return itemId;
+    public int getId() {
+        return id;
     }
 
     public String getName() {

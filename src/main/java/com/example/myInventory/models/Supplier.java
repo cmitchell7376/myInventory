@@ -1,12 +1,17 @@
 package com.example.myInventory.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Supplier {
 
-    private int supplierId;
-    private static int nextId = 0;
+    @Id
+    @GeneratedValue
+    private int id;
 
     @NotNull
     @Size(min = 1, max = 100,message = "field empty")
@@ -30,8 +35,8 @@ public class Supplier {
 
     public Supplier(){ }
 
-    public int getSupplierId(){
-        return supplierId;
+    public int getId(){
+        return id;
     }
 
     public String getName() {

@@ -1,10 +1,10 @@
 package com.example.myInventory.controllers;
 
+import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
-import com.example.myInventory.models.data.InventoryData;
-import com.example.myInventory.models.data.ItemData;
-import com.example.myInventory.models.data.StoreData;
+import com.example.myInventory.models.data.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,10 +15,19 @@ import javax.validation.Valid;
 @RequestMapping("inventory")
 public class InventoryController {
 
+    @Autowired
+    private StoreDao storeDao;
+
+    @Autowired
+    private InventoryDao inventoryDao;
+
+    @Autowired
+    private ItemDao itemDao;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model, @RequestParam int id){
 
-        Store store = StoreData.getById(id);
+        Store store = storeDao.findOne(id);
         model.addAttribute("items",store.getInventory().getItems());
         model.addAttribute("store",store);
         model.addAttribute("title",store.getInventory().getName()+" Inventory");
@@ -39,6 +48,7 @@ public class InventoryController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddItemForm(Model model, @ModelAttribute @Valid Item item, Errors errors,@RequestParam int storeId){
 
+        //checks for errors
         if(errors.hasErrors()){
             model.addAttribute("storeId",storeId);
             model.addAttribute("title","Add item");
@@ -46,8 +56,13 @@ public class InventoryController {
             return "inventory/add";
         }
 
-        Store store = StoreData.getById(storeId);
-        store.getInventory().addItem(item);
+        //finds the store and it's inventory then adds new item to inventory
+        Store store = storeDao.findOne(storeId);
+        int inventoryId = store.getInventory().getId();
+        Inventory inventory = inventoryDao.findOne(inventoryId);
+        itemDao.save(item);
+        inventory.addItem(item);
+        inventoryDao.save(inventory);
 
         return "redirect:?id=" + storeId;
     }
@@ -56,7 +71,7 @@ public class InventoryController {
     public String removeItemForm(Model model,@PathVariable int id){
 
         model.addAttribute("title","Remove Stores");
-        model.addAttribute("items",StoreData.getById(id).getInventory().getItems());
+        model.addAttribute("items",storeDao.findOne(id).getInventory().getItems());
         model.addAttribute("storeId",id);
 
         return "inventory/remove";
@@ -65,10 +80,14 @@ public class InventoryController {
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public  String processRemoveStore(Model model, @RequestParam int [] itemIds, @RequestParam int storeId) {
 
+        Store store = storeDao.findOne(storeId);
+
         for (int itemId : itemIds) {
-            Item item = InventoryData.checkByName(storeId,itemId);
-            StoreData.getById(storeId).getInventory().removeItem(item);
+            Item item = InventoryData.checkByName(store,itemId);
+            storeDao.findOne(storeId).getInventory().removeItem(item);
+            itemDao.delete(item);
         }
+
         return "redirect:?id=" + storeId;
     }
 
@@ -76,9 +95,15 @@ public class InventoryController {
     public String edit(Model model, @PathVariable int itemId,@RequestParam int id){
 
         model.addAttribute("storeId",id);
-        Item newItem = ItemData.getItem(itemId,id);
+
+        //grabs previous item from database
+        Item item = itemDao.findOne(itemId);
+        Store store = storeDao.findOne(id);
+        Item newItem = ItemData.getItem(itemId, store);
+
         model.addAttribute("item",newItem);
         model.addAttribute("title","Edit " + newItem.getName());
+
         return "inventory/edit";
     }
 
@@ -86,13 +111,17 @@ public class InventoryController {
     public String processEdit(Model model, @RequestParam int storeId, @RequestParam int itemId,
                               @ModelAttribute Item newItem){
 
-        Item updateItem = ItemData.getItem(itemId,storeId);
-        updateItem.setName(newItem.getName());
-        updateItem.setBarCode(newItem.getBarCode());
-        updateItem.setTotalQty(newItem.getTotalQty());
-        updateItem.setAvailable(newItem.getAvailable());
-        updateItem.setLocation(newItem.getLocation());
-        updateItem.setPrice(newItem.getPrice());
+        //edit's the previous item in the database
+        Item item = itemDao.findOne(itemId);
+        item.setName(newItem.getName());
+        item.setBarCode(newItem.getBarCode());
+        item.setTotalQty(newItem.getTotalQty());
+        item.setAvailable(newItem.getAvailable());
+        item.setLocation(newItem.getLocation());
+        item.setPrice(newItem.getPrice());
+
+        itemDao.save(item);
+
         return "redirect:?id=" + storeId;
     }
 }

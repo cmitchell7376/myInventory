@@ -2,7 +2,9 @@ package com.example.myInventory.controllers;
 
 import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Store;
-import com.example.myInventory.models.data.StoreData;
+import com.example.myInventory.models.data.InventoryDao;
+import com.example.myInventory.models.data.StoreDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,11 +18,17 @@ import javax.validation.Valid;
 @RequestMapping("store")
 public class HomeController {
 
+    @Autowired
+    private StoreDao storeDao;
+
+    @Autowired
+    private InventoryDao inventoryDao;
+
     @RequestMapping(value = "")
     public String index(Model model){
 
         model.addAttribute("title","Username Stores");
-        model.addAttribute("stores", StoreData.getAll());
+        model.addAttribute("stores", storeDao.findAll());
 
         return "store/index";
     }
@@ -38,14 +46,17 @@ public class HomeController {
     public String processAddStoreForm(@ModelAttribute @Valid Store store, Errors errors, Model model,
                                       @RequestParam String inventoryName){
 
+        //checks for errors
         if(errors.hasErrors()){
             model.addAttribute("title","Add a Store");
             return "store/add";
         }
 
+        //create store and it's inventory
         Inventory inventory = new Inventory(inventoryName);
+        inventoryDao.save(inventory);
         store.setInventory(inventory);
-        StoreData.add(store);
+        storeDao.save(store);
 
         return "redirect:";
     }
@@ -54,7 +65,7 @@ public class HomeController {
     public String removeStore(Model model){
 
         model.addAttribute("title","Remove Stores");
-        model.addAttribute("stores",StoreData.getAll());
+        model.addAttribute("stores",storeDao.findAll());
 
         return "store/remove";
     }
@@ -63,7 +74,7 @@ public class HomeController {
     public  String processRemoveStore(Model model, @RequestParam int [] storeIds){
 
         for (int storeId : storeIds){
-            StoreData.remove(storeId);
+            storeDao.delete(storeId);
         }
         return "redirect:";
     }

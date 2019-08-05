@@ -2,19 +2,20 @@ package com.example.myInventory.models.data;
 
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryData {
 
-    //check item by name
-    public static Item checkByName(int storeId, int itemId){
 
-        Store store = StoreData.getById(storeId);
-        ArrayList<Item> items = store.getInventory().getItems();
+    private static StoreDao storeDao;
+
+    //check item by name
+    public static Item checkByName(Store store, int itemId){
+
+        List<Item> items = store.getInventory().getItems();
 
         for (Item item: items) {
-            if (item.getItemId() == itemId){
+            if (item.getId() == itemId){
                 return item;
             }
         }
