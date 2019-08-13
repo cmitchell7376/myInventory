@@ -1,20 +1,23 @@
 package com.example.myInventory.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class User {
     private int id;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String userName;
+    private String username;
     private String password;
-    private List<Store> stores = new ArrayList<>();
+    private List<Store> stores;
 
     public User (){ }
 
-    public User(String email, String userName,String password){
+    public User(String firstName, String lastName, String email, String username, String password){
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
     }
 
@@ -22,12 +25,20 @@ public class User {
         return id;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     public String getEmail() {
         return email;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -38,12 +49,21 @@ public class User {
         return stores;
     }
 
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public void setPassword(String password) {
