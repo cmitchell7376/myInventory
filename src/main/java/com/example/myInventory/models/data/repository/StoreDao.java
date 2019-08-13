@@ -1,4 +1,4 @@
-package com.example.myInventory.models.data;
+package com.example.myInventory.models.data.repository;
 
 import com.example.myInventory.models.Store;
 import org.springframework.data.repository.CrudRepository;

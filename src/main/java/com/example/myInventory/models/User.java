@@ -1,15 +1,49 @@
 package com.example.myInventory.models;
 
-import java.util.List;
+import lombok.Data;
+import org.hibernate.validator.constraints.Email;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Data
 public class User {
+
+    @Id
+    @GeneratedValue
     private int id;
+
+    @NotNull
     private String firstName;
+
+    @NotNull
     private String lastName;
+
+    @NotNull
+    @Email(message = "Please provide a valid Email")
     private String email;
+
+    @NotNull
+    @Size(min = 3, max = 20)
     private String username;
+
+    @NotNull
+    @Size(min = 3, max = 20)
     private String password;
+
+    private int active;
+
+    @OneToMany
+    @JoinColumn(name = "user-id")
     private List<Store> stores;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "u-id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public User (){ }
 
@@ -45,10 +79,17 @@ public class User {
         return password;
     }
 
+    public int getActive() {
+        return active;
+    }
+
     public List<Store> getStores() {
         return stores;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -70,7 +111,15 @@ public class User {
         this.password = password;
     }
 
+    public void setActive(int active) {
+        this.active = active;
+    }
+
     public void setStores(List<Store> stores) {
         this.stores = stores;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

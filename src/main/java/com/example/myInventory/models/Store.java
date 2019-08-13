@@ -36,6 +36,9 @@ public class Store {
     @ManyToOne
     private Inventory inventory;
 
+    @ManyToOne
+    private User user;
+
     public  Store(){}
 
     public Store (String name, String streetAddress, String city, String state, String zip,
@@ -80,6 +83,11 @@ public class Store {
         return phoneNumber;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+
     public void setName(String name) {
 
         this.name = name;
@@ -107,5 +115,9 @@ public class Store {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

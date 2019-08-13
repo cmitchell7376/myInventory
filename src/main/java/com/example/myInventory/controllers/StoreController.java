@@ -2,8 +2,8 @@ package com.example.myInventory.controllers;
 
 import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Store;
-import com.example.myInventory.models.data.InventoryDao;
-import com.example.myInventory.models.data.StoreDao;
+import com.example.myInventory.models.data.repository.InventoryDao;
+import com.example.myInventory.models.data.repository.StoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
