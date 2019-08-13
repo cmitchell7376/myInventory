@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments :: head"></head>
+    <body>
+        <nav th:replace="fragments :: nav"></nav>
+
+        <h1 th:text="${title}" class="welcome-title">Welcome</h1>
+        <div style="text-align: center;">
+            <h5>Choose your category:</h5>
+        </div>
+
+        <div class="welcome-border">
+            <div class="welcome-icon1">
+                <h5 style="text-align: center;">Equipment Rental</h5>
+                    <img th:src="@{/images/cordless-drill.png}" class="unavailable" height="200" width="200" alt="Not Found" />
+                <h5 style="text-align: center; opacity: 0.4;">Coming Soon!</h5>
+            </div>
+
+            <div class="welcome-icon2">
+                <h5 style="text-align: center;">Retail</h5>
+                <a class="nav-link" th:href="@{/store}">
+                    <img th:src="@{/images/retail.png}" height="200" width="200" alt="Not Found" />
+                </a>
+            </div>
+
+        </div>
+
+        <footer th:replace="fragments :: footer"></footer>
+    </body>
+</html>
