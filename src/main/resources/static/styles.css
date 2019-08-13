@@ -32,6 +32,30 @@
     padding-top: 5px;
 }
 
+.welcome-title{
+    text-align: center;
+    padding-top: 5px;
+}
+
+.welcome-border{
+    margin: auto;
+    width: 900px;
+    height: 400px;
+}
+
+.welcome-icon1{
+    position: absolute;
+    left: 800px;
+    top: 200px;
+}
+
+
+.welcome-icon2{
+    position: absolute;
+    left: 350px;
+    top: 200px;
+}
+
 .nav-border{
     border-right: 1px solid black;
 }
@@ -76,4 +100,8 @@
     width: 400px;
     margin: auto;
     padding-bottom: 20px;
+}
+
+.unavailable{
+    filter: grayscale(100%);
 }
