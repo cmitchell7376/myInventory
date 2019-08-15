@@ -41,8 +41,7 @@ public class User {
     @JoinColumn(name = "user-id")
     private List<Store> stores;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "u-id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany
     private Set<Role> roles;
 
     public User (){ }

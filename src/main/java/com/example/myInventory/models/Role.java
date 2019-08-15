@@ -2,9 +2,8 @@ package com.example.myInventory.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,4 +14,7 @@ public class Role {
     private int id;
 
     private String role;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 }
