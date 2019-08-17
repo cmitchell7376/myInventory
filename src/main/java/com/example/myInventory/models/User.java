@@ -37,8 +37,7 @@ public class User {
 
     private int active;
 
-    @OneToMany
-    @JoinColumn(name = "user-id")
+    @ManyToMany
     private List<Store> stores;
 
     @ManyToMany
