@@ -18,7 +18,7 @@
 
             <div class="welcome-icon2">
                 <h5 style="text-align: center;">Retail</h5>
-                <a class="nav-link" th:href="@{/store}">
+                <a class="nav-link" th:href="@{/store/{user}(user = ${storeId})}">
                     <img th:src="@{/images/retail.png}" height="200" width="200" alt="Not Found" />
                 </a>
             </div>
