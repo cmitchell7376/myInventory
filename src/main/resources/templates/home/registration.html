@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments :: head"></head>
+    <body>
+        <nav th:replace="fragments :: nav"></nav>
+
+        <div id="page-container">
+            <div id="content-wrap">
+                <div class="add-form">
+
+                    <h1 th:text="${title}"></h1>
+
+                    <span th:utext="${successMessage}"></span>
+
+                    <form method="post" th:object="${user}">
+                        <div class="form-group">
+                            <label th:for="firstName">First Name:</label>
+                            <input class="form-control" th:field="*{firstName}"/>
+                            <span th:errors="*{firstName}" class="error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="lastName">Last Name:</label>
+                            <input class="form-control" th:field="*{lastName}"/>
+                            <span th:errors="*{lastName}" class="error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="email">E-mail address:</label>
+                            <input class="form-control" th:field="*{email}"/>
+                            <span th:errors="*{email}" class="error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="username">Username:</label>
+                            <input class="form-control" th:field="*{username}"/>
+                            <span th:errors="*{username}" class="error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label th:for="password">Password:</label>
+                            <input class="form-control" th:field="*{password}" type="password"/>
+                            <span th:errors="*{password}" class="error"></span>
+                        </div>
+
+                        <input type="submit"/>
+                    </form>
+                </div>
+            </div>
+            <footer th:replace="fragments :: footer"></footer>
+        </div>
+    </body>
+</html>

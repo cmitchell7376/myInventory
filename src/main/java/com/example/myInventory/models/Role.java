@@ -3,18 +3,35 @@ package com.example.myInventory.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
+@Table(name = "role")
 public class Role {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
     private int id;
 
+    @Column(name = "role")
     private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    public Role(String role) {
+        this.role = role;
+    }
+
+    public Role (){}
+
+    public int getId() {
+        return id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

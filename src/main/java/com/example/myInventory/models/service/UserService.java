@@ -2,8 +2,8 @@ package com.example.myInventory.models.service;
 
 import com.example.myInventory.models.Role;
 import com.example.myInventory.models.User;
-import com.example.myInventory.models.data.repository.RoleDao;
-import com.example.myInventory.models.data.repository.UserDao;
+import com.example.myInventory.models.data.repository.RoleRepository;
+import com.example.myInventory.models.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,27 +14,27 @@ import java.util.HashSet;
 @Service("userService")
 public class UserService {
 
-    private UserDao userDao;
-    private RoleDao roleDao;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserDao userDao, RoleDao roleDao, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
 
-        this.userDao = userDao;
-        this.roleDao = roleDao;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public User findUserByEmail(String email){
-        return userDao.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     public void saveUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-        Role userRole = roleDao.findByRole("ADMIN");
+        Role userRole = roleRepository.findByRole("ADMIN");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        userDao.save(user);
+        userRepository.save(user);
     }
 }

@@ -2,45 +2,50 @@ package com.example.myInventory.models;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private int id;
 
-    @NotNull
+    @Column(name = "firstName")
+    @NotEmpty(message = "*Please provide your name")
     private String firstName;
 
-    @NotNull
+    @Column(name = "last_name")
+    @NotEmpty(message = "*Please provide your last name")
     private String lastName;
 
-    @NotNull
-    @Email(message = "Please provide a valid Email")
+    @Column(name = "email")
+    @Email(message = "*Please provide a valid Email")
     private String email;
 
-    @NotNull
-    @Size(min = 3, max = 20)
+    @Column(name = "username")
+    @NotEmpty(message = "Please provide Username")
     private String username;
 
-    @NotNull
-    @Size(min = 3, max = 20)
+    @Column(name = "password")
+    @NotEmpty(message = "*Please provide your password")
     private String password;
 
+    @Column(name = "active")
     private int active;
 
     @ManyToMany
     private List<Store> stores;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User (){ }
@@ -88,6 +93,8 @@ public class User {
     public Set<Role> getRoles() {
         return roles;
     }
+
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
