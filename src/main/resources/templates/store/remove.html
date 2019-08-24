@@ -14,6 +14,7 @@
                             <div th:each="store : ${stores}">
                                 <input type="checkbox" name="storeIds" th:value="${store.getId()}" th:id="${store.getId()}" />
                                 <label th:for="${store.getId()}" th:text="${store.name}"></label>
+                                <div th:text="${error}" class="error"></div>
                             </div>
                             <input type="hidden" th:value="${userId}" name="userId"/>
                             <input type="submit" value="Remove store"/>

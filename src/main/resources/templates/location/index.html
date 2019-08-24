@@ -8,6 +8,10 @@
 
                 <h1 th:text="${title}" class="index-title"></h1>
 
+                <h5>
+                    <a th:href="@{/inventory/user/{userId}/(id=${storeId},userId=${userId})}"
+                    class="backButton">Back to inventory</a>
+                </h5>
                 <div class="table-border">
                     <table class="table ">
                         <tr>

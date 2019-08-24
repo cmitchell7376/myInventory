@@ -45,7 +45,7 @@ public class InventoryController {
         model.addAttribute(new Item());
         model.addAttribute("storeId",id);
         model.addAttribute("userId",userId);
-        model.addAttribute("title","Add item");
+        model.addAttribute("title","Add Product");
 
         return "inventory/add";
     }
@@ -57,7 +57,7 @@ public class InventoryController {
         //checks for errors
         if(errors.hasErrors()){
             model.addAttribute("storeId",storeId);
-            model.addAttribute("title","Add item");
+            model.addAttribute("title","Add Product");
 
             return "inventory/add";
         }
@@ -73,18 +73,20 @@ public class InventoryController {
         return "redirect:user/" + userId + "?id=" + storeId;
     }
 
-    @RequestMapping(value = "remove/{id}", method = RequestMethod.GET)
-    public String removeItemForm(Model model,@PathVariable int id){
+    @RequestMapping(value = "user/{userId}/remove/{id}", method = RequestMethod.GET)
+    public String removeItemForm(Model model,@PathVariable int id, @PathVariable int userId){
 
-        model.addAttribute("title","Remove Stores");
+        model.addAttribute("title","Remove Product");
         model.addAttribute("items",storeDao.findOne(id).getInventory().getItems());
         model.addAttribute("storeId",id);
+        model.addAttribute("userId", userId);
 
         return "inventory/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public  String processRemoveStore(Model model, @RequestParam int [] itemIds, @RequestParam int storeId) {
+    public  String processRemoveStore(Model model, @RequestParam int [] itemIds, @RequestParam int storeId,
+                                      @RequestParam int userId) {
 
         Store store = storeDao.findOne(storeId);
 
@@ -94,7 +96,7 @@ public class InventoryController {
             itemDao.delete(item);
         }
 
-        return "redirect:?id=" + storeId;
+        return "redirect:user/" + userId + "/?id=" + storeId;
     }
 
     @RequestMapping(value = "edit/user/{userId}/item/{itemId}/store", method = RequestMethod.GET)

@@ -32,7 +32,7 @@ public class StoreController {
 
         User user1 = userRepository.findOne(user);
         model.addAttribute("userId",user1.getId());
-        model.addAttribute("title",user1.getUsername() + " Stores");
+        model.addAttribute("title",user1.getUsername() + " Companies");
         model.addAttribute("stores", user1.getStores());
 
         return "store/index";
@@ -41,7 +41,7 @@ public class StoreController {
     @RequestMapping(value = "add/user/{userId}", method = RequestMethod.GET)
     public String addStoreForm(Model model, @PathVariable int userId){
 
-        model.addAttribute("title","Add a Store");
+        model.addAttribute("title","Add Company");
         model.addAttribute("userId",userId);
         model.addAttribute(new Store());
 
@@ -54,7 +54,7 @@ public class StoreController {
         User user = userRepository.findOne(userId);
         //checks for errors
         if(errors.hasErrors()){
-            model.addAttribute("title","Add a Store");
+            model.addAttribute("title","Add Company");
             return "store/add";
         }
 
@@ -74,7 +74,7 @@ public class StoreController {
         User user = userRepository.findOne(userId);
 
         model.addAttribute("userId",userId);
-        model.addAttribute("title","Remove Stores");
+        model.addAttribute("title","Remove company");
         model.addAttribute("stores",user.getStores());
 
         return "store/remove";
@@ -84,6 +84,16 @@ public class StoreController {
     public  String processRemoveStore(Model model, @RequestParam int [] storeIds, @RequestParam int userId){
 
         User user = userRepository.findOne(userId);
+
+        if(storeIds.length == 0){
+            model.addAttribute("userId",userId);
+            model.addAttribute("title","Remove company");
+            model.addAttribute("stores",user.getStores());
+            model.addAttribute("error","please check one of the boxes");
+
+            return "store/remove";
+        }
+
         for (int storeId: storeIds) {
             Store store = storeDao.findOne(storeId);
             user.removeStore(store);
