@@ -59,7 +59,7 @@ public class LoginController {
         return "home/registration";
     }
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "home")
     public String index(Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

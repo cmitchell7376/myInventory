@@ -27,29 +27,32 @@ public class InventoryController {
     @Autowired
     private ItemDao itemDao;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String index(Model model, @RequestParam int id){
+    @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
+    public String index(Model model, @RequestParam int id, @PathVariable int userId){
 
         Store store = storeDao.findOne(id);
         model.addAttribute("items",store.getInventory().getItems());
         model.addAttribute("store",store);
+        model.addAttribute("userId",userId);
         model.addAttribute("title",store.getInventory().getName()+" Inventory");
 
         return "inventory/index";
     }
 
-    @RequestMapping(value = "add/{id}", method = RequestMethod.GET)
-    public String addItemForm(Model model,@PathVariable int id){
+    @RequestMapping(value = "/user/{userId}/add/{id}", method = RequestMethod.GET)
+    public String addItemForm(Model model,@PathVariable int id, @PathVariable int userId){
 
         model.addAttribute(new Item());
         model.addAttribute("storeId",id);
+        model.addAttribute("userId",userId);
         model.addAttribute("title","Add item");
 
         return "inventory/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddItemForm(Model model, @ModelAttribute @Valid Item item, Errors errors,@RequestParam int storeId){
+    public String processAddItemForm(Model model, @ModelAttribute @Valid Item item, Errors errors,@RequestParam int storeId,
+                                     @RequestParam int userId){
 
         //checks for errors
         if(errors.hasErrors()){
@@ -67,7 +70,7 @@ public class InventoryController {
         inventory.addItem(item);
         inventoryDao.save(inventory);
 
-        return "redirect:?id=" + storeId;
+        return "redirect:user/" + userId + "?id=" + storeId;
     }
 
     @RequestMapping(value = "remove/{id}", method = RequestMethod.GET)
@@ -94,8 +97,8 @@ public class InventoryController {
         return "redirect:?id=" + storeId;
     }
 
-    @RequestMapping(value = "edit/{itemId}/store", method = RequestMethod.GET)
-    public String edit(Model model, @PathVariable int itemId,@RequestParam int id){
+    @RequestMapping(value = "edit/user/{userId}/item/{itemId}/store", method = RequestMethod.GET)
+    public String edit(Model model, @PathVariable int itemId,@RequestParam int id, @PathVariable int userId){
 
         model.addAttribute("storeId",id);
 
@@ -112,7 +115,7 @@ public class InventoryController {
 
     @RequestMapping(value ="edit", method = RequestMethod.POST)
     public String processEdit(Model model, @RequestParam int storeId, @RequestParam int itemId,
-                              @ModelAttribute Item newItem){
+                              @ModelAttribute Item newItem, @RequestParam int userId){
 
         //edit's the previous item in the database
         Item item = itemDao.findOne(itemId);
@@ -125,6 +128,6 @@ public class InventoryController {
 
         itemDao.save(item);
 
-        return "redirect:?id=" + storeId;
+        return "redirect:user/" + userId + "?id=" + storeId;
     }
 }

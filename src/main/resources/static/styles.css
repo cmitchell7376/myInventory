@@ -105,3 +105,10 @@
 .unavailable{
     filter: grayscale(100%);
 }
+
+.login-form{
+    position: relative;
+    width: 400px;
+    margin-top: 100px;
+    margin-left: 500px;
+}

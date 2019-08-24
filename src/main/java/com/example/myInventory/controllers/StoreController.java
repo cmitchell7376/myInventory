@@ -2,16 +2,16 @@ package com.example.myInventory.controllers;
 
 import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Store;
+import com.example.myInventory.models.User;
 import com.example.myInventory.models.data.repository.InventoryDao;
 import com.example.myInventory.models.data.repository.StoreDao;
+import com.example.myInventory.models.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 @Controller
@@ -24,19 +24,25 @@ public class StoreController {
     @Autowired
     private InventoryDao inventoryDao;
 
-    @RequestMapping(value = "")
-    public String index(Model model){
+    @Autowired
+    private UserRepository userRepository;
 
-        model.addAttribute("title","Username Stores");
-        model.addAttribute("stores", storeDao.findAll());
+    @RequestMapping(value = "")
+    public String index(Model model, @RequestParam int user){
+
+        User user1 = userRepository.findOne(user);
+        model.addAttribute("userId",user1.getId());
+        model.addAttribute("title",user1.getUsername() + " Stores");
+        model.addAttribute("stores", user1.getStores());
 
         return "store/index";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String addStoreForm(Model model){
+    @RequestMapping(value = "add/user/{userId}", method = RequestMethod.GET)
+    public String addStoreForm(Model model, @PathVariable int userId){
 
         model.addAttribute("title","Add a Store");
+        model.addAttribute("userId",userId);
         model.addAttribute(new Store());
 
         return "store/add";
@@ -44,8 +50,8 @@ public class StoreController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddStoreForm(@ModelAttribute @Valid Store store, Errors errors, Model model,
-                                      @RequestParam String inventoryName){
-
+                                      @RequestParam String inventoryName, @RequestParam int userId){
+        User user = userRepository.findOne(userId);
         //checks for errors
         if(errors.hasErrors()){
             model.addAttribute("title","Add a Store");
@@ -56,26 +62,33 @@ public class StoreController {
         Inventory inventory = new Inventory(inventoryName);
         inventoryDao.save(inventory);
         store.setInventory(inventory);
+        user.getStores().add(store);
         storeDao.save(store);
 
-        return "redirect:";
+        return "redirect:?user=" + user.getId();
     }
 
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String removeStore(Model model){
+    @RequestMapping(value = "user/{userId}/remove", method = RequestMethod.GET)
+    public String removeStore(Model model, @PathVariable int userId){
 
+        User user = userRepository.findOne(userId);
+
+        model.addAttribute("userId",userId);
         model.addAttribute("title","Remove Stores");
-        model.addAttribute("stores",storeDao.findAll());
+        model.addAttribute("stores",user.getStores());
 
         return "store/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public  String processRemoveStore(Model model, @RequestParam int [] storeIds){
+    public  String processRemoveStore(Model model, @RequestParam int [] storeIds, @RequestParam int userId){
 
-        for (int storeId : storeIds){
-            storeDao.delete(storeId);
+        User user = userRepository.findOne(userId);
+        for (int storeId: storeIds) {
+            Store store = storeDao.findOne(storeId);
+            user.removeStore(store);
+            storeDao.delete(store);
         }
-        return "redirect:";
+        return "redirect:/store/?user=" + userId;
     }
 }

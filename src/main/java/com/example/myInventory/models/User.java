@@ -127,4 +127,8 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public void  removeStore (Store item){
+        stores.remove(item);
+    }
 }
