@@ -14,7 +14,8 @@
                 <input type="hidden" th:value="${storeId}" name="storeId"/>
                 <label th:for="${item.getId()}" th:text="${item.name}"></label>
             </div>
-            <input type="submit" value="Remove store"/>
+            <input type="hidden" th:value="${userId}" name="userId"/>
+            <input type="submit" value="Remove"/>
         </form>
     </div>
 </div>

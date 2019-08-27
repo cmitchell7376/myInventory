@@ -1,6 +1,6 @@
 .side-nav{
     height: 565px;
-    width: 200px;
+    width: 250px;
     background-color: white;
 }
 
@@ -104,4 +104,17 @@
 
 .unavailable{
     filter: grayscale(100%);
+}
+
+.login-form{
+    position: relative;
+    width: 400px;
+    margin-top: 100px;
+    margin-left: 500px;
+}
+
+.backButton{
+     position: absolute;
+     left: 941px;
+     padding-top: 40px;
 }

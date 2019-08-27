@@ -1,7 +1,7 @@
 package com.example.myInventory.controllers;
 
 import com.example.myInventory.models.Supplier;
-import com.example.myInventory.models.data.SupplierDao;
+import com.example.myInventory.models.data.repository.SupplierDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

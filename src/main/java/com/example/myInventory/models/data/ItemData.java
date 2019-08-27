@@ -2,6 +2,8 @@ package com.example.myInventory.models.data;
 
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
+import com.example.myInventory.models.data.repository.StoreDao;
+
 import java.util.List;
 
 public class ItemData {

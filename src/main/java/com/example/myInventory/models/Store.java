@@ -3,6 +3,7 @@ package com.example.myInventory.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Store {
@@ -35,6 +36,9 @@ public class Store {
 
     @ManyToOne
     private Inventory inventory;
+
+    @ManyToMany(mappedBy = "stores")
+    private List<User> users;
 
     public  Store(){}
 
@@ -80,6 +84,10 @@ public class Store {
         return phoneNumber;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
     public void setName(String name) {
 
         this.name = name;
@@ -107,5 +115,9 @@ public class Store {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
