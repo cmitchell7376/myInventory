@@ -4,7 +4,21 @@
     <body>
         <nav th:replace="fragments :: nav"></nav>
 
-        <h1 class="index-title" th:text="${title}">Stores owner owens</h1>
+        <h2 class="index-title" th:text="${title}">Stores owner owens</h2>
+
+        <div class="search-box">
+            <form method="post">
+                <input type="text" name="searchRequest" placeholder="Product Name/Code" size="20" style="height: 25px;"/>
+                <div class="search-type">
+                    <select name="search-type">
+                        <option value="Name">Name</option>
+                        <option value="BarCode">Barcode</option>
+                    </select>
+                    <input type="submit" class="search-submit" value="Search"/>
+                </div>
+            </form>
+        </div>
+
 
         <div class="nav-border side-nav">
             <nav class="nav flex-column">

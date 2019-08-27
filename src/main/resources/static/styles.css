@@ -118,3 +118,22 @@
      left: 941px;
      padding-top: 40px;
 }
+
+.search-box{
+    position: absolute;
+    left: 780px;
+    top: 75px;
+}
+
+.search-type{
+    position: absolute;
+    top: 0px;
+    left: 180px;
+}
+
+.search-submit{
+    position: absolute;
+    left: 85px;
+    top: 0px;
+    height: 25px;
+}
