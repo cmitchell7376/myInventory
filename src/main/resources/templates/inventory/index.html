@@ -35,15 +35,15 @@
                     </a>
                 </span>
                 <span class="side-link">
-                    <a class="nav-link" th:href="@{/store/(user=${userId})}">
-                        <img th:src="@{/images/store.png}" height="42" width="42" alt="Not Found" />
-                        <span style="padding-left: 5px;">Companies</span>
-                    </a>
-                </span>
-                <span class="side-link">
                     <a class="nav-link" th:href="@{/inventory/user/{userId}(userId=${userId},id=${store.id})}">
                         <img th:src="@{/images/inventoryIcon.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Inventory</span>
+                    </a>
+                </span>
+                <span class="side-link">
+                    <a class="nav-link" th:href="@{/store/(user=${userId})}">
+                        <img th:src="@{/images/store.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Companies</span>
                     </a>
                 </span>
             </nav>
