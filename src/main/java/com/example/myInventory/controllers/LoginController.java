@@ -12,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -39,7 +40,8 @@ public class LoginController {
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
-    public String createNewUser(Model model, @ModelAttribute @Valid User user, Errors errors, BindingResult bindingResult){
+    public String createNewUser(Model model, @ModelAttribute @Valid User user, Errors errors,
+                                BindingResult bindingResult, @RequestParam String sPassword){
 
         User userExists = userService.findUserByEmail(user.getEmail());
 
@@ -47,6 +49,13 @@ public class LoginController {
             bindingResult
                     .rejectValue("email", "error.user",
                             "There is already a user registered with the email provided");
+        }
+
+        if(!user.getPassword().equals(sPassword)){
+
+            model.addAttribute("title","Registration");
+            model.addAttribute("error","Passwords don't match");
+            return "home/registration";
         }
 
         if(bindingResult.hasErrors()) {
