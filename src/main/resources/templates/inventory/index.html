@@ -6,6 +6,19 @@
 
         <h1 th:text="${title}" class="index-title">Store Title Inventory</h1>
 
+        <div class="search-box2">
+            <form method="post">
+                <input type="text" name="searchRequest" placeholder="Product Name/Code" size="20" style="height: 25px;"/>
+                <div class="search-type2">
+                    <select name="search-type">
+                        <option value="Name">Name</option>
+                        <option value="BarCode">Barcode</option>
+                    </select>
+                    <input type="submit" class="search-submit2" value="Search"/>
+                </div>
+            </form>
+        </div>
+
         <header class="nav-border side-nav">
             <nav class="nav flex-column">
                 <span class="side-link">

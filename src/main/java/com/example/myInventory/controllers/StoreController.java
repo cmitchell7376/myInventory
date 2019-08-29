@@ -3,6 +3,7 @@ package com.example.myInventory.controllers;
 import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Store;
 import com.example.myInventory.models.User;
+import com.example.myInventory.models.data.SearchData;
 import com.example.myInventory.models.data.repository.InventoryDao;
 import com.example.myInventory.models.data.repository.StoreDao;
 import com.example.myInventory.models.data.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("store")
@@ -34,6 +36,19 @@ public class StoreController {
         model.addAttribute("userId",user1.getId());
         model.addAttribute("title",user1.getUsername() + " Companies");
         model.addAttribute("stores", user1.getStores());
+
+        return "store/index";
+    }
+
+    @RequestMapping(value = "search", method = RequestMethod.POST)
+    public String search(Model model, @RequestParam int user, @RequestParam String searchRequest){
+
+        User user1 = userRepository.findOne(user);
+
+        List<Store> stores = SearchData.storeSearch(user1,searchRequest);
+        model.addAttribute("userId",user1.getId());
+        model.addAttribute("title",user1.getUsername() + " Companies");
+        model.addAttribute("stores", stores);
 
         return "store/index";
     }

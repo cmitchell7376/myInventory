@@ -7,15 +7,9 @@
         <h2 class="index-title" th:text="${title}">Stores owner owens</h2>
 
         <div class="search-box">
-            <form method="post">
-                <input type="text" name="searchRequest" placeholder="Product Name/Code" size="20" style="height: 25px;"/>
-                <div class="search-type">
-                    <select name="search-type">
-                        <option value="Name">Name</option>
-                        <option value="BarCode">Barcode</option>
-                    </select>
-                    <input type="submit" class="search-submit" value="Search"/>
-                </div>
+            <form method="post" th:action="@{/store/search/(user=${userId})}">
+                <input type="text" name="searchRequest" placeholder="Company Name" size="20" style="height: 25px;"/>
+                <input type="submit" class="search-submit" value="Search"/>
             </form>
         </div>
 
@@ -32,6 +26,12 @@
                     <a class="nav-link" th:href="@{/store/user/{userId}/remove(userId=${userId})}">
                         <img th:src="@{/images/removeStore.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">remove company</span>
+                    </a>
+                </span>
+                <span class="side-link">
+                    <a class="nav-link" th:href="@{/store/(user=${userId})}">
+                        <img th:src="@{/images/store.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Companies</span>
                     </a>
                 </span>
             </nav>

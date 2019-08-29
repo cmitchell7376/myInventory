@@ -121,19 +121,38 @@
 
 .search-box{
     position: absolute;
-    left: 780px;
+    left: 860px;
     top: 75px;
 }
 
 .search-type{
     position: absolute;
     top: 0px;
-    left: 180px;
+    left: 178px;
 }
 
 .search-submit{
     position: absolute;
-    left: 85px;
+    left: 177px;
     top: 0px;
     height: 25px;
+}
+
+.search-type2{
+    position: absolute;
+    top: 0px;
+    left: 177px;
+}
+
+.search-submit2{
+    position: absolute;
+    left: 80px;
+    top: 0px;
+    height: 25px;
+}
+
+.search-box2{
+    position: absolute;
+    left: 780px;
+    top: 75px;
 }
