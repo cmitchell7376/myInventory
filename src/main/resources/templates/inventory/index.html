@@ -7,13 +7,14 @@
         <h1 th:text="${title}" class="index-title">Store Title Inventory</h1>
 
         <div class="search-box2">
-            <form method="post">
+            <form method="post" th:action="@{/inventory/search/user/{userId}(userId=${userId})}">
                 <input type="text" name="searchRequest" placeholder="Product Name/Code" size="20" style="height: 25px;"/>
                 <div class="search-type2">
-                    <select name="search-type">
+                    <select name="searchType">
                         <option value="Name">Name</option>
                         <option value="BarCode">Barcode</option>
                     </select>
+                    <input type="hidden" th:value="${store.id}" name="id"/>
                     <input type="submit" class="search-submit2" value="Search"/>
                 </div>
             </form>
@@ -37,6 +38,12 @@
                     <a class="nav-link" th:href="@{/store/(user=${userId})}">
                         <img th:src="@{/images/store.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Companies</span>
+                    </a>
+                </span>
+                <span class="side-link">
+                    <a class="nav-link" th:href="@{/inventory/user/{userId}(userId=${userId},id=${store.id})}">
+                        <img th:src="@{/images/inventoryIcon.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Inventory</span>
                     </a>
                 </span>
             </nav>

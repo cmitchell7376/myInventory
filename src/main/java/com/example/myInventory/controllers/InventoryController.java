@@ -3,7 +3,9 @@ package com.example.myInventory.controllers;
 import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
-import com.example.myInventory.models.data.*;
+import com.example.myInventory.models.data.InventoryData;
+import com.example.myInventory.models.data.ItemData;
+import com.example.myInventory.models.data.SearchData;
 import com.example.myInventory.models.data.repository.InventoryDao;
 import com.example.myInventory.models.data.repository.ItemDao;
 import com.example.myInventory.models.data.repository.StoreDao;
@@ -12,7 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("inventory")
@@ -32,6 +37,28 @@ public class InventoryController {
 
         Store store = storeDao.findOne(id);
         model.addAttribute("items",store.getInventory().getItems());
+        model.addAttribute("store",store);
+        model.addAttribute("userId",userId);
+        model.addAttribute("title",store.getInventory().getName()+" Inventory");
+
+        return "inventory/index";
+    }
+
+    @RequestMapping(value = "search/user/{userId}", method = RequestMethod.POST)
+    public String search(Model model, @RequestParam int id, @PathVariable int userId,
+                         @RequestParam String searchRequest, @RequestParam String searchType){
+
+        Store store = storeDao.findOne(id);
+        List<Item>items = new ArrayList<>();
+
+        if(searchType.equalsIgnoreCase("Name")){
+            items = SearchData.inventorySearchName(store,searchRequest);
+        }
+        else if(searchType.equalsIgnoreCase("BarCode")){
+            items = SearchData.inventorySearchCode(store,searchRequest);
+        }
+
+        model.addAttribute("items",items);
         model.addAttribute("store",store);
         model.addAttribute("userId",userId);
         model.addAttribute("title",store.getInventory().getName()+" Inventory");
