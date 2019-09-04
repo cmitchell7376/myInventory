@@ -20,11 +20,11 @@
                                     <td>
                                         <input type="checkbox" name="storeIds" th:value="${store.getId()}"
                                            th:id="${store.getId()}" />
+                                        <div th:text="${error}" class="error"></div>
                                     </td>
                                     <td>
                                         <label th:for="${store.getId()}" th:text="${store.name}"></label>
                                     </td>
-                                    <div th:text="${error}" class="error"></div>
                                 </tr>
                             </table>
                             <input type="hidden" th:value="${userId}" name="userId"/>

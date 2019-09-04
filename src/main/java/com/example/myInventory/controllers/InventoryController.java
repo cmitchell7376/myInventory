@@ -112,10 +112,20 @@ public class InventoryController {
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public  String processRemoveStore(Model model, @RequestParam int [] itemIds, @RequestParam int storeId,
-                                      @RequestParam int userId) {
+    public  String processRemoveStore(Model model, @RequestParam(value = "itemIds", required = false) List<Integer>itemIds,
+                                      @RequestParam int storeId, @RequestParam int userId) {
 
         Store store = storeDao.findOne(storeId);
+
+        if(itemIds  == null){
+            model.addAttribute("title","Remove Product");
+            model.addAttribute("items",storeDao.findOne(storeId).getInventory().getItems());
+            model.addAttribute("storeId",storeId);
+            model.addAttribute("userId", userId);
+            model.addAttribute("error","please check one of the boxes");
+
+            return "inventory/remove";
+        }
 
         for (int itemId : itemIds) {
             Item item = InventoryData.checkByName(store,itemId);

@@ -96,11 +96,12 @@ public class StoreController {
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public  String processRemoveStore(Model model, @RequestParam int [] storeIds, @RequestParam int userId){
+    public  String processRemoveStore(Model model, @RequestParam(value = "storeIds", required = false) List<Integer> storeIds,
+                                      @RequestParam int userId){
 
         User user = userRepository.findOne(userId);
 
-        if(storeIds.length == 0){
+        if(storeIds  == null){
             model.addAttribute("userId",userId);
             model.addAttribute("title","Remove company");
             model.addAttribute("stores",user.getStores());
