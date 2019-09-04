@@ -17,6 +17,7 @@
                 <tr th:each="item : ${items}">
                     <td>
                         <input type="checkbox" name="itemIds" th:value="${item.id}" th:id="${item.getId()}" />
+                        <div th:text="${error}" class="error"></div>
                     </td>
                     <td>
                         <label th:for="${item.getId()}" th:text="${item.name}"></label>
