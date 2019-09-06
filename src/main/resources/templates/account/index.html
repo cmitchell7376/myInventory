@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+    <nav th:replace="fragments :: nav"></nav>
+
+    <div id="page-container">
+
+        <div id="content-wrap">
+
+            <div class="account-border">
+
+                <h4>
+                    <span th:text="${userName}"></span>
+                    <span>Profile</span>
+                </h4>
+
+                <div class="account-image">
+                    <h4>Profile Picture</h4>
+                </div>
+
+                <form method="post" th:object="${user}">
+                    <div class="form-group account-padding">
+                        <label th:for="firstName">First Name:</label>
+                        <input class="form-control account-formLength" type="text" name="first" th:value="*{firstName}"/>
+                        <span th:errors="*{firstName}" class="error"></span>
+                    </div>
+
+                    <div class="form-group account-padding">
+                        <label th:for="lastName">Last Name:</label>
+                        <input class="form-control account-formLength" type="text" name="last" th:value="*{lastName}"/>
+                        <span th:errors="*{lastName}" class="error"></span>
+                    </div>
+
+                    <div class="form-group account-padding" style="padding-top: 10px;">
+                        <label th:for="email">E-mail address:</label>
+                        <input class="form-control account-formLength" type="text" name="email" th:value="*{email}"/>
+                        <span th:errors="*{email}" class="error"></span>
+                    </div>
+
+                    <div class="form-group account-padding" style="padding-top: 10px;">
+                        <label th:for="username">Username:</label>
+                        <input class="form-control account-formLength" type="text" name="userN" th:value="*{username}"/>
+                        <span th:errors="*{username}" class="error"></span>
+                    </div>
+                    <input class="account-submit" type="submit"/>
+                </form>
+            </div>
+        </div>
+        <footer th:replace="fragments :: footer"></footer>
+    </div>
+
+</body>
+</html>

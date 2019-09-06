@@ -162,3 +162,35 @@
     left: 250px;
 
 }
+
+.account-border{
+    position: absolute;
+    background-color: GhostWhite;
+    top: 100px;
+    left: 220px;
+    width: 550px;
+}
+
+.account-formLength{
+    width: 500px;
+    padding-left: 5px;
+}
+
+.account-padding{
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.account-submit{
+    position: relative;
+    left: 10px;
+}
+
+.account-image{
+    position: absolute;
+    background-color: GhostWhite;
+    top: 1px;
+    left: 650px;
+    height: 250px;
+    width: 250px;
+}
