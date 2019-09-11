@@ -2,26 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-<div id="page-container">
-    <div id="content-wrap">
-        <nav th:replace="fragments :: nav"></nav>
+    <div id="page-container">
+        <div id="content-wrap">
 
-        <div class="removeWindow">
-            <h3 th:text="${title}">Default title</h3>
+            <nav th:replace="fragments :: nav"></nav>
 
-            <div class="table-border">
-                <form method="post">
-                    <div th:each="supplier : ${suppliers}">
-                        <input type="checkbox" name="supplierIds" th:value="${supplier.getId()}"
-                               th:id="${supplier.getId()}" />
-                        <label th:for="${supplier.getId()}" th:text="${supplier.name}"></label>
-                    </div>
-                    <input type="submit" value="Remove supplier"/>
-                </form>
+            <div class="removeWindow">
+                <h3 th:text="${title}">Default title</h3>
+
+                <div class="table-border">
+                    <form method="post" action="/supplier/remove">
+                        <table class="table">
+                            <tr>
+                                <th>CheckBox</th>
+                                <th>Supplier Name</th>
+                            </tr>
+                            <tr th:each="supplier : ${suppliers}">
+                                <td>
+                                    <input type="checkbox" id="supplierId" name="supplierIds" th:value="${supplier.id}"/>
+                                    <div th:text="${error}" class="error"></div>
+                                </td>
+                                <td>
+                                    <label for="supplierId" th:text="${supplier.name}"></label>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" th:value="${userId}" name="userId"/>
+                        <input type="submit"  value="Remove store"/>
+                    </form>
+                </div>
             </div>
         </div>
+        <footer th:replace="fragments :: footer"></footer>
     </div>
-    <footer th:replace="fragments :: footer"></footer>
-</div>
 </body>
 </html>

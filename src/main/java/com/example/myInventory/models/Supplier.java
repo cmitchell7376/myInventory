@@ -1,10 +1,9 @@
 package com.example.myInventory.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Supplier {
@@ -22,6 +21,9 @@ public class Supplier {
     private String city;
     private String state;
     private String zip;
+
+    @ManyToMany(mappedBy = "suppliers")
+    private List<User> users;
 
     public Supplier(String name, String phoneNumber, String streetAddress, String city, String state, String zip){
         this();
@@ -63,6 +65,9 @@ public class Supplier {
         return zip;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -86,5 +91,9 @@ public class Supplier {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

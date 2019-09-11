@@ -9,13 +9,13 @@
             <div class="nav-border side-nav">
                 <nav class="nav flex-column">
                 <span class="side-link">
-                    <a class="nav-link" href="/supplier/add">
+                    <a class="nav-link" th:href="@{/supplier/add/user/{userId}(userId=${userId})}">
                         <img th:src="@{/images/addStore.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Add Supplier</span>
                     </a>
                 </span>
                     <span class="side-link">
-                    <a class="nav-link" href="/supplier/remove">
+                    <a class="nav-link" th:href="@{/supplier/user/{userId}/remove(userId=${userId})}">
                         <img th:src="@{/images/removeStore.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">remove Supplier</span>
                     </a>

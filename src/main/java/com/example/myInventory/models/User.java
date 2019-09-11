@@ -42,6 +42,9 @@ public class User {
     private int active;
 
     @ManyToMany
+    private List<Supplier> suppliers;
+
+    @ManyToMany
     private List<Store> stores;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -90,6 +93,10 @@ public class User {
         return stores;
     }
 
+    public List<Supplier> getSuppliers() {
+        return suppliers;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -122,6 +129,10 @@ public class User {
 
     public void setStores(List<Store> stores) {
         this.stores = stores;
+    }
+
+    public void setSuppliers(List<Supplier> suppliers) {
+        this.suppliers = suppliers;
     }
 
     public void setRoles(Set<Role> roles) {

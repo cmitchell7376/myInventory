@@ -1,7 +1,9 @@
 package com.example.myInventory.controllers;
 
 import com.example.myInventory.models.Supplier;
+import com.example.myInventory.models.User;
 import com.example.myInventory.models.data.repository.SupplierDao;
+import com.example.myInventory.models.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("supplier")
@@ -17,26 +20,35 @@ public class SupplierController {
     @Autowired
     private SupplierDao supplierDao;
 
-    @RequestMapping(value = "")
-    public String index(Model model){
+    @Autowired
+    private UserRepository userRepository;
+
+    @RequestMapping(value = "/user/{userId}")
+    public String index(Model model,@PathVariable int userId){
+
+        List<Supplier> suppliers = userRepository.findOne(userId).getSuppliers();
 
         model.addAttribute("title","Supplier's Contact List");
-        model.addAttribute("suppliers", supplierDao.findAll());
+        model.addAttribute("suppliers", suppliers);
 
         return "supplier/index";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String addSupplierForm(Model model){
+    @RequestMapping(value = "add/user/{userId}", method = RequestMethod.GET)
+    public String addSupplierForm(Model model,@PathVariable int userId){
 
         model.addAttribute("title","Add a Supplier");
+        model.addAttribute("userId",userId);
         model.addAttribute(new Supplier());
 
         return "supplier/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddSupplierForm(@ModelAttribute @Valid Supplier supplier, Errors errors, Model model){
+    public String processAddSupplierForm(@ModelAttribute @Valid Supplier supplier, Errors errors, Model model,
+                                         @RequestParam int userId){
+
+        User user = userRepository.findOne(userId);
 
         //check fpr errors
         if(errors.hasErrors()){
@@ -44,27 +56,42 @@ public class SupplierController {
             return "supplier/add";
         }
 
+        user.getSuppliers().add(supplier);
         supplierDao.save(supplier);
 
-        return "redirect:";
+        return "redirect:user/" + userId;
     }
 
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String removeSupplier(Model model){
+    @RequestMapping(value = "user/{userId}/remove", method = RequestMethod.GET)
+    public String removeSupplier(Model model, @PathVariable int userId){
 
         model.addAttribute("title","Remove Supplier");
-        model.addAttribute("suppliers", supplierDao.findAll());
+        model.addAttribute("userId",userId);
+        model.addAttribute("suppliers", userRepository.findOne(userId).getSuppliers());
 
         return "supplier/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public  String processRemoveSupplier(Model model, @RequestParam int [] supplierIds){
+    public  String processRemoveSupplier(Model model, @RequestParam(value = "supplierIds", required = false) int [] supplierIds,
+                                         @RequestParam int userId){
+        User user = userRepository.findOne(userId);
+
+        if(supplierIds  == null){
+            model.addAttribute("title","Remove Supplier");
+            model.addAttribute("userId",userId);
+            model.addAttribute("suppliers", userRepository.findOne(userId).getSuppliers());
+            model.addAttribute("error","please check one of the boxes");
+            return "supplier/remove";
+        }
 
         for (int supplierId : supplierIds){
-            supplierDao.delete(supplierDao.findOne(supplierId));
+            Supplier supplier = supplierDao.findOne(supplierId);
+            user.getSuppliers().remove(supplier);
+            supplierDao.delete(supplierId);
         }
-        return "redirect:";
+
+        return "redirect:user/" + userId;
     }
 
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
