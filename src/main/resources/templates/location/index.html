@@ -4,7 +4,7 @@
     <body>
         <div id="page-container">
             <div id="content-wrap">
-                <nav th:replace="fragments :: nav"></nav>
+                <nav th:replace="fragments :: nav(context=${username},content=${userId})"></nav>
 
                 <h1 th:text="${title}" class="index-title"></h1>
 

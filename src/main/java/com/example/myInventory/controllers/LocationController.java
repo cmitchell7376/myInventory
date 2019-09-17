@@ -3,6 +3,7 @@ package com.example.myInventory.controllers;
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
 import com.example.myInventory.models.data.repository.StoreDao;
+import com.example.myInventory.models.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class LocationController {
     @Autowired
     private StoreDao storeDao;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @RequestMapping(value = "user/{userId}/{name}/store", method = RequestMethod.GET)
     public String index(Model model, @PathVariable String name, @RequestParam int id, @PathVariable int userId){
 
@@ -36,6 +40,7 @@ public class LocationController {
 
         model.addAttribute("userId",userId);
         model.addAttribute("storeId",id);
+        model.addAttribute("username",userRepository.findOne(userId).getUsername());
         model.addAttribute("title",name + " Storage");
         model.addAttribute("items",locationArray);
 
