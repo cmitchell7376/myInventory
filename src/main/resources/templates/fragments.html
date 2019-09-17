@@ -36,6 +36,9 @@
                     <a class="dropdown-item" th:href="@{/logout}">Sign out</a>
                 </div>
             </div>
+            <a class="nav-link username-link" th:href="@{/account/user/{userId}(userId=${content})}">
+                <span th:text="${context}"></span>
+            </a>
         </nav>
 
         <footer th:fragment="footer" class="footer">

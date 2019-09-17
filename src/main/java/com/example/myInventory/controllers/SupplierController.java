@@ -30,6 +30,8 @@ public class SupplierController {
 
         model.addAttribute("title","Supplier's Contact List");
         model.addAttribute("suppliers", suppliers);
+        model.addAttribute("username",userRepository.findOne(userId).getUsername());
+        model.addAttribute("userId",userId);
 
         return "supplier/index";
     }
@@ -39,6 +41,7 @@ public class SupplierController {
 
         model.addAttribute("title","Add a Supplier");
         model.addAttribute("userId",userId);
+        model.addAttribute("username",userRepository.findOne(userId).getUsername());
         model.addAttribute(new Supplier());
 
         return "supplier/add";
@@ -67,6 +70,7 @@ public class SupplierController {
 
         model.addAttribute("title","Remove Supplier");
         model.addAttribute("userId",userId);
+        model.addAttribute("username",userRepository.findOne(userId).getUsername());
         model.addAttribute("suppliers", userRepository.findOne(userId).getSuppliers());
 
         return "supplier/remove";
@@ -81,6 +85,7 @@ public class SupplierController {
             model.addAttribute("title","Remove Supplier");
             model.addAttribute("userId",userId);
             model.addAttribute("suppliers", userRepository.findOne(userId).getSuppliers());
+            model.addAttribute("username",user.getUsername());
             model.addAttribute("error","please check one of the boxes");
             return "supplier/remove";
         }

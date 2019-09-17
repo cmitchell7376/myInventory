@@ -34,6 +34,7 @@ public class StoreController {
 
         User user1 = userRepository.findOne(user);
         model.addAttribute("userId",user1.getId());
+        model.addAttribute("username",user1.getUsername());
         model.addAttribute("title",user1.getUsername() + " Companies");
         model.addAttribute("stores", user1.getStores());
 
@@ -58,6 +59,7 @@ public class StoreController {
 
         model.addAttribute("title","Add Company");
         model.addAttribute("userId",userId);
+        model.addAttribute("username",userRepository.findOne(userId).getUsername());
         model.addAttribute(new Store());
 
         return "store/add";
@@ -90,6 +92,7 @@ public class StoreController {
 
         model.addAttribute("userId",userId);
         model.addAttribute("title","Remove company");
+        model.addAttribute("username",user.getUsername());
         model.addAttribute("stores",user.getStores());
 
         return "store/remove";
@@ -105,6 +108,7 @@ public class StoreController {
             model.addAttribute("userId",userId);
             model.addAttribute("title","Remove company");
             model.addAttribute("stores",user.getStores());
+            model.addAttribute("username",user.getUsername());
             model.addAttribute("error","please check one of the boxes");
 
             return "store/remove";

@@ -194,3 +194,11 @@
     height: 250px;
     width: 250px;
 }
+
+.username-link{
+    color: white;
+    text-decoration: underline;
+    position: absolute;
+    right: 50px;
+    font-weight: bold;
+}

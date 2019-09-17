@@ -4,7 +4,7 @@
 <body>
 <div id="page-container">
     <div id="content-wrap">
-        <nav th:replace="fragments :: nav"></nav>
+        <nav th:replace="fragments :: nav(context=${username},content=${userId})"></nav>
 
         <div class="add-form">
             <h3 th:text="${title}">Default title</h3>
