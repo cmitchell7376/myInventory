@@ -2,13 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
     <head th:replace="fragments :: head"></head>
     <body>
-        <nav th:replace="fragments :: nav"></nav>
+        <nav th:replace="fragments :: nav(context=${username},content=${userId})"></nav>
 
         <h1 th:text="${title}" class="welcome-title">Welcome</h1>
         <div style="text-align: center;">
-            <h4>
-                <a th:href="@{/account/user/{userId}(userId = ${userId})}">Account</a>
-            </h4>
             <h5>Choose your category:</h5>
         </div>
 

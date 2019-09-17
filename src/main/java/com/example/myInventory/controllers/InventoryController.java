@@ -9,6 +9,7 @@ import com.example.myInventory.models.data.SearchData;
 import com.example.myInventory.models.data.repository.InventoryDao;
 import com.example.myInventory.models.data.repository.ItemDao;
 import com.example.myInventory.models.data.repository.StoreDao;
+import com.example.myInventory.models.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,9 @@ public class InventoryController {
     @Autowired
     private ItemDao itemDao;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
     public String index(Model model, @RequestParam int id, @PathVariable int userId){
 
@@ -39,6 +43,7 @@ public class InventoryController {
         model.addAttribute("items",store.getInventory().getItems());
         model.addAttribute("store",store);
         model.addAttribute("userId",userId);
+        model.addAttribute("username", userRepository.findOne(userId).getUsername());
         model.addAttribute("title",store.getInventory().getName()+" Inventory");
 
         return "inventory/index";
@@ -72,6 +77,7 @@ public class InventoryController {
         model.addAttribute(new Item());
         model.addAttribute("storeId",id);
         model.addAttribute("userId",userId);
+        model.addAttribute("username", userRepository.findOne(userId).getUsername());
         model.addAttribute("title","Add Product");
 
         return "inventory/add";
@@ -107,6 +113,7 @@ public class InventoryController {
         model.addAttribute("items",storeDao.findOne(id).getInventory().getItems());
         model.addAttribute("storeId",id);
         model.addAttribute("userId", userId);
+        model.addAttribute("username",userRepository.findOne(userId).getUsername());
 
         return "inventory/remove";
     }
@@ -122,6 +129,7 @@ public class InventoryController {
             model.addAttribute("items",storeDao.findOne(storeId).getInventory().getItems());
             model.addAttribute("storeId",storeId);
             model.addAttribute("userId", userId);
+            model.addAttribute("username",userRepository.findOne(userId).getUsername());
             model.addAttribute("error","please check one of the boxes");
 
             return "inventory/remove";
