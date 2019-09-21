@@ -3,7 +3,6 @@ package com.example.myInventory.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +23,9 @@ public class Inventory {
     @ManyToMany
     private List<Item>items;
 
+    @ManyToMany
+    private List<EquipmentGroup> equipmentGroups;
+
     public Inventory(){ }
 
     public Inventory(String name){
@@ -40,6 +42,10 @@ public class Inventory {
 
     public List<Item> getItems() {
         return items;
+    }
+
+    public List<EquipmentGroup> getEquipmentGroups() {
+        return equipmentGroups;
     }
 
     public void setName(String name) {
