@@ -24,7 +24,8 @@ public class Inventory {
     private List<Item>items;
 
     @ManyToMany
-    private List<EquipmentGroup> equipmentGroups;
+    private List<Equipment>equipment;
+
 
     public Inventory(){ }
 
@@ -42,10 +43,6 @@ public class Inventory {
 
     public List<Item> getItems() {
         return items;
-    }
-
-    public List<EquipmentGroup> getEquipmentGroups() {
-        return equipmentGroups;
     }
 
     public void setName(String name) {

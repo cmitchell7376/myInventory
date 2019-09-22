@@ -20,21 +20,20 @@ public class Equipment {
     private String name;
 
     @NotNull
-    @Size(min = 1, max = 100, message = "field empty")
-    private String inUse = "";
+    @Size(min = 0)
+    private int available;
 
-    private String foreman;
-    private String jobSite;
+    private int quantity;
+
+    @ManyToMany
+    private List<Tool> tools;
 
     @ManyToMany(mappedBy = "equipment")
-    private List<EquipmentGroup>equipmentGroups;
+    private List<Inventory>inventories;
 
     public Equipment(){}
-    public Equipment(String name, String foreman, String jobSite){
-
+    public Equipment(String name){
         this.name = name;
-        this.foreman = foreman;
-        this.jobSite = jobSite;
     }
 
     public int getId() {
@@ -45,37 +44,39 @@ public class Equipment {
         return name;
     }
 
-    public String getInUse() {
-        return inUse;
+    public int getAvailable() {
+        int notInUse = 0;
+        for(int i = 0; i < tools.size(); ++i){
+            if(tools.get(i).getInUse().equalsIgnoreCase("no")){
+                notInUse += 1;
+            }
+            available = notInUse;
+        }
+        return available;
     }
 
-    public String getForeman() {
-        return foreman;
+    public int getQuantity() {
+        quantity = tools.size();
+        return quantity;
     }
 
-    public String getJobSite() {
-        return jobSite;
+    public List<Tool> getTools() {
+        return tools;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setInUse(String inUse) {
-        if(inUse.equalsIgnoreCase("yes")){
-            inUse = "yes";
-        }
-        else if(inUse.equalsIgnoreCase("no")){
-            inUse = "no";
-        }
-        inUse = null;
+    public void setAvailable(int available) {
+        this.available = available;
     }
 
-    public void setForeman(String foreman) {
-        this.foreman = foreman;
+    public void addTool(Tool tool){
+        tools.add(tool);
     }
 
-    public void setJobSite(String jobSite) {
-        this.jobSite = jobSite;
+    public void removeTool(Tool tool){
+        tools.remove(tool);
     }
 }
