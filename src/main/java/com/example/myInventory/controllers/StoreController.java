@@ -32,11 +32,11 @@ public class StoreController {
     @RequestMapping(value = "")
     public String index(Model model, @RequestParam int user){
 
-        User user1 = userRepository.findOne(user);
-        model.addAttribute("userId",user1.getId());
-        model.addAttribute("username",user1.getUsername());
-        model.addAttribute("title",user1.getUsername() + " Companies");
-        model.addAttribute("stores", user1.getStores());
+        User one = userRepository.findOne(user);
+        model.addAttribute("userId",one.getId());
+        model.addAttribute("username",one.getUsername());
+        model.addAttribute("title",one.getUsername() + " Companies");
+        model.addAttribute("stores", one.getStores());
 
         return "store/index";
     }

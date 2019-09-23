@@ -20,6 +20,10 @@ public class Inventory {
     @JoinColumn(name = "inventory_id")
     private List<Store>stores;
 
+    @OneToMany
+    @JoinColumn(name = "inventory_id")
+    private List<EquipmentStore> equpimentStores;
+
     @ManyToMany
     private List<Item>items;
 

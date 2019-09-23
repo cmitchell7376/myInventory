@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav(context=${username},content=${userId})"></nav>
+
+<h2 class="index-title" th:text="${title}">Stores owner owens</h2>
+
+<div class="search-box">
+    <form method="post" th:action="@{/store/search/(user=${userId})}">
+        <input type="text" name="searchRequest" placeholder="Company Name" size="20" style="height: 25px;"/>
+        <input type="submit" class="search-submit" value="Search"/>
+    </form>
+</div>
+
+
+<div class="nav-border side-nav">
+    <nav class="nav flex-column">
+                <span class="side-link">
+                    <a class="nav-link" th:href="@{/store/add/user/{userId}(userId=${userId})}">
+                        <img th:src="@{/images/addStore.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Add company</span>
+                    </a>
+                </span>
+        <span class="side-link">
+                    <a class="nav-link" th:href="@{/store/user/{userId}/remove(userId=${userId})}">
+                        <img th:src="@{/images/removeStore.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">remove company</span>
+                    </a>
+                </span>
+        <span class="side-link">
+                    <a class="nav-link" th:href="@{/store/(user=${userId})}">
+                        <img th:src="@{/images/store.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Companies</span>
+                    </a>
+                </span>
+        <span class="side-link">
+                    <a class="nav-link" th:href="@{/supplier/user/{userId}(userId=${userId})}">
+                        <img th:src="@{/images/store.png}" height="42" width="42" alt="Not Found" />
+                        <span style="padding-left: 5px;">Supplier</span>
+                    </a>
+                </span>
+    </nav>
+</div>
+
+<div class="table-border">
+    <ul th:each="store : ${stores}">
+        <li>
+            <a th:href="@{/inventory/user/{userId}/(id=${store.id},userId=${userId})}">
+                <u><h4 th:text="${store.name}" style="padding-top: 5px;"></h4></u>
+            </a>
+            <span th:text="${store.streetAddress}"></span>,
+            <span  th:text="${store.city}"></span>,
+            <span  th:text="${store.state}"></span>,
+            <span  th:text="${store.zip}"></span>,
+            <span  th:text="${store.phoneNumber}"></span>
+        </li>
+    </ul>
+</div>
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>
