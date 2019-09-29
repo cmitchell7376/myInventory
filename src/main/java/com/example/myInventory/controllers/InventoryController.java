@@ -1,15 +1,13 @@
 package com.example.myInventory.controllers;
 
+import com.example.myInventory.models.EquipmentStore;
 import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
 import com.example.myInventory.models.data.InventoryData;
 import com.example.myInventory.models.data.ItemData;
 import com.example.myInventory.models.data.SearchData;
-import com.example.myInventory.models.data.repository.InventoryDao;
-import com.example.myInventory.models.data.repository.ItemDao;
-import com.example.myInventory.models.data.repository.StoreDao;
-import com.example.myInventory.models.data.repository.UserRepository;
+import com.example.myInventory.models.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +33,9 @@ public class InventoryController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EquipmentStoreDao equipmentStoreDao;
 
     @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
     public String index(Model model, @RequestParam int id, @PathVariable int userId){
@@ -176,5 +177,18 @@ public class InventoryController {
         itemDao.save(item);
 
         return "redirect:user/" + userId + "?id=" + storeId;
+    }
+
+    @RequestMapping(value = "equipment/user/{userId}", method = RequestMethod.GET)
+    public String eIndex(Model model, @RequestParam int id, @PathVariable int userId){
+
+        EquipmentStore store = equipmentStoreDao.findOne(id);
+        model.addAttribute("items",store.getInventory().getEquipment());
+        model.addAttribute("store",store);
+        model.addAttribute("userId",userId);
+        model.addAttribute("username", userRepository.findOne(userId).getUsername());
+        model.addAttribute("title",store.getInventory().getName()+" Inventory");
+
+        return "inventory/index";
     }
 }

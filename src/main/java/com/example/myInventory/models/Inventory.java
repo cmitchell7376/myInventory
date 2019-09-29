@@ -49,6 +49,10 @@ public class Inventory {
         return items;
     }
 
+    public List<Equipment> getEquipment() {
+        return equipment;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

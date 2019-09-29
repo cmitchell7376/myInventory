@@ -46,7 +46,7 @@
 <div class="table-border">
     <ul th:each="store : ${stores}">
         <li>
-            <a th:href="@{/inventory/user/{userId}/(id=${store.id},userId=${userId})}">
+            <a th:href="@{/inventory/equipment/user/{userId}/(id=${store.id},userId=${userId})}">
                 <u><h4 th:text="${store.name}" style="padding-top: 5px;"></h4></u>
             </a>
             <span th:text="${store.streetAddress}"></span>,
