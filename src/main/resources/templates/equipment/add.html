@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div id="page-container">
+    <div id="content-wrap">
+        <nav th:replace="fragments :: nav(context=${username},content=${userId})"></nav>
+
+        <div class="add-form">
+            <h3 th:text="${title}">Default title</h3>
+
+            <form method="post" th:object="${equipmentStore}" action="/equipment/add">
+                <div class="form-group">
+                    <label th:for="name">Name</label>
+                    <span class="required">*</span>
+                    <input class="form-control" th:field="*{name}" />
+                    <span th:errors="*{name}" class="error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="streetAddress">Street Address</label>
+                    <span class="required">*</span>
+                    <input class="form-control" th:field="*{streetAddress}"/>
+                    <span th:errors="*{streetAddress}" class="error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="city">City</label>
+                    <span class="required">*</span>
+                    <input class="form-control" th:field="*{city}"/>
+                    <span th:errors="*{city}" class="error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="state">State</label>
+                    <span class="required">*</span>
+                    <input class="form-control" th:field="*{state}"/>
+                    <span th:errors="*{state}" class="error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="zip">Zip Code</label>
+                    <span class="required">*</span>
+                    <input class="form-control" th:field="*{zip}" placeholder="Must contain 5 digits"/>
+                    <span th:errors="*{zip}" class="error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="phoneNumber">Phone Number</label>
+                    <input class="form-control" th:field="*{phoneNumber}"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="inventoryName">Inventory Name</label>
+                    <input class="form-control" phoneNumber="text" name="inventoryName" id="inventoryName" />
+                </div>
+
+                <input type="hidden" th:value="${userId}" name="userId"/>
+                <input type="submit" value="Add"/>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="fragments :: footer"></footer>
+</div>
+</body>
+</html>

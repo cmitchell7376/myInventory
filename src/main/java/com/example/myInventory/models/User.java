@@ -153,4 +153,8 @@ public class User {
     public void  removeStore (Store item){
         stores.remove(item);
     }
+
+    public void  removeEquipmentStore (EquipmentStore item){
+        equipmentStores.remove(item);
+    }
 }
