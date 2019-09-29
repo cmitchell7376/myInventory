@@ -3,6 +3,7 @@ package com.example.myInventory.controllers;
 import com.example.myInventory.models.EquipmentStore;
 import com.example.myInventory.models.Inventory;
 import com.example.myInventory.models.User;
+import com.example.myInventory.models.data.SearchData;
 import com.example.myInventory.models.data.repository.EquipmentStoreDao;
 import com.example.myInventory.models.data.repository.InventoryDao;
 import com.example.myInventory.models.data.repository.ToolDao;
@@ -40,6 +41,19 @@ public class EquipmentController {
         model.addAttribute("username",user1.getUsername());
         model.addAttribute("title",user1.getUsername() + " Companies");
         model.addAttribute("stores", user1.getEquipmentStores());
+
+        return "equipment/index";
+    }
+
+    @RequestMapping(value = "search", method = RequestMethod.POST)
+    public String search(Model model, @RequestParam int user, @RequestParam String searchRequest){
+
+        User user1 = userRepository.findOne(user);
+
+        List<EquipmentStore> stores = SearchData.equipmentStoreSearch(user1,searchRequest);
+        model.addAttribute("userId",user1.getId());
+        model.addAttribute("title",user1.getUsername() + " Companies");
+        model.addAttribute("stores", stores);
 
         return "equipment/index";
     }

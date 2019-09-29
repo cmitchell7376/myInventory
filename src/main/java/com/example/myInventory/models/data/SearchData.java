@@ -1,5 +1,6 @@
 package com.example.myInventory.models.data;
 
+import com.example.myInventory.models.EquipmentStore;
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
 import com.example.myInventory.models.User;
@@ -70,5 +71,28 @@ public class SearchData {
             }
         }
         return itemFound;
+    }
+
+    public static List<EquipmentStore> equipmentStoreSearch(User user, String searchRequest){
+
+        List<EquipmentStore> storeFound = new ArrayList<>();
+
+        String [] storeNameSplit;
+        List<EquipmentStore> stores = user.getEquipmentStores();
+
+        for (EquipmentStore store: stores){
+            if(store.getName().equalsIgnoreCase(searchRequest)){
+                storeFound.add(store);
+            }else {
+                storeNameSplit = store.getName().split(" ");
+
+                for (String word : storeNameSplit) {
+                    if (word.equalsIgnoreCase(searchRequest)) {
+                        storeFound.add(store);
+                    }
+                }
+            }
+        }
+        return storeFound;
     }
 }
