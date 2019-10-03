@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("equipment")
-public class EquipmentController {
+public class EquipmentStoreController {
 
     @Autowired
     private UserRepository userRepository;
@@ -42,7 +42,7 @@ public class EquipmentController {
         model.addAttribute("title",user1.getUsername() + " Companies");
         model.addAttribute("stores", user1.getEquipmentStores());
 
-        return "equipment/index";
+        return "equipmentStore/index";
     }
 
     @RequestMapping(value = "search", method = RequestMethod.POST)
@@ -55,7 +55,7 @@ public class EquipmentController {
         model.addAttribute("title",user1.getUsername() + " Companies");
         model.addAttribute("stores", stores);
 
-        return "equipment/index";
+        return "equipmentStore/index";
     }
 
     @RequestMapping(value = "add/user/{userId}", method = RequestMethod.GET)
@@ -66,7 +66,7 @@ public class EquipmentController {
         model.addAttribute("username", userRepository.findOne(userId).getUsername());
         model.addAttribute(new EquipmentStore());
 
-        return "equipment/add";
+        return "equipmentStore/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -76,7 +76,7 @@ public class EquipmentController {
         //checks for errors
         if(errors.hasErrors()){
             model.addAttribute("title","Add Company");
-            return "equipment/add";
+            return "equipmentStore/add";
         }
 
         //create store and it's inventory
@@ -99,7 +99,7 @@ public class EquipmentController {
         model.addAttribute("username",user.getUsername());
         model.addAttribute("stores",user.getEquipmentStores());
 
-        return "equipment/remove";
+        return "equipmentStore/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
@@ -115,7 +115,7 @@ public class EquipmentController {
             model.addAttribute("username",user.getUsername());
             model.addAttribute("error","please check one of the boxes");
 
-            return "equipment/remove";
+            return "equipmentStore/remove";
         }
 
         for (int storeId: storeIds) {

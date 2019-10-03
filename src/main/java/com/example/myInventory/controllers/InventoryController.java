@@ -189,6 +189,6 @@ public class InventoryController {
         model.addAttribute("username", userRepository.findOne(userId).getUsername());
         model.addAttribute("title",store.getInventory().getName()+" Inventory");
 
-        return "inventory/index";
+        return "equipmentInventory/index";
     }
 }

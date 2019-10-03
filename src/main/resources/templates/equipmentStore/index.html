@@ -7,7 +7,7 @@
 <h2 class="index-title" th:text="${title}">Stores owner owens</h2>
 
 <div class="search-box">
-    <form method="post" th:action="@{/store/search/(user=${userId})}">
+    <form method="post" th:action="@{/equipment/search/(user=${userId})}">
         <input type="text" name="searchRequest" placeholder="Company Name" size="20" style="height: 25px;"/>
         <input type="submit" class="search-submit" value="Search"/>
     </form>
