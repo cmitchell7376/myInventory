@@ -17,19 +17,19 @@
 <div class="nav-border side-nav">
     <nav class="nav flex-column">
                 <span class="side-link">
-                    <a class="nav-link" th:href="@{/equipment/add/user/{userId}(userId=${userId})}">
+                    <a class="nav-link" th:href="@{/company/add/user/{userId}(userId=${userId})}">
                         <img th:src="@{/images/addStore.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Add company</span>
                     </a>
                 </span>
         <span class="side-link">
-                    <a class="nav-link" th:href="@{/equipment/user/{userId}/remove(userId=${userId})}">
+                    <a class="nav-link" th:href="@{/company/user/{userId}/remove(userId=${userId})}">
                         <img th:src="@{/images/removeStore.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">remove company</span>
                     </a>
                 </span>
         <span class="side-link">
-                    <a class="nav-link" th:href="@{/equipment/store/(user=${userId})}">
+                    <a class="nav-link" th:href="@{/company/store/(user=${userId})}">
                         <img th:src="@{/images/store.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Companies</span>
                     </a>
@@ -46,7 +46,7 @@
 <div class="table-border">
     <ul th:each="store : ${stores}">
         <li>
-            <a th:href="@{/inventory/equipment/user/{userId}/(id=${store.id},userId=${userId})}">
+            <a th:href="@{/equipment/user/{userId}/(id=${store.id},userId=${userId})}">
                 <u><h4 th:text="${store.name}" style="padding-top: 5px;"></h4></u>
             </a>
             <span th:text="${store.streetAddress}"></span>,

@@ -1,6 +1,6 @@
 package com.example.myInventory.models.data;
 
-import com.example.myInventory.models.EquipmentStore;
+import com.example.myInventory.models.Company;
 import com.example.myInventory.models.Item;
 import com.example.myInventory.models.Store;
 import com.example.myInventory.models.User;
@@ -73,14 +73,14 @@ public class SearchData {
         return itemFound;
     }
 
-    public static List<EquipmentStore> equipmentStoreSearch(User user, String searchRequest){
+    public static List<Company> equipmentStoreSearch(User user, String searchRequest){
 
-        List<EquipmentStore> storeFound = new ArrayList<>();
+        List<Company> storeFound = new ArrayList<>();
 
         String [] storeNameSplit;
-        List<EquipmentStore> stores = user.getEquipmentStores();
+        List<Company> stores = user.getCompanies();
 
-        for (EquipmentStore store: stores){
+        for (Company store: stores){
             if(store.getName().equalsIgnoreCase(searchRequest)){
                 storeFound.add(store);
             }else {

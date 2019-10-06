@@ -1,11 +1,11 @@
 package com.example.myInventory.controllers;
 
-import com.example.myInventory.models.EquipmentStore;
-import com.example.myInventory.models.Inventory;
+import com.example.myInventory.models.Company;
+import com.example.myInventory.models.CompanyInventory;
 import com.example.myInventory.models.User;
 import com.example.myInventory.models.data.SearchData;
-import com.example.myInventory.models.data.repository.EquipmentStoreDao;
-import com.example.myInventory.models.data.repository.InventoryDao;
+import com.example.myInventory.models.data.repository.CompanyDao;
+import com.example.myInventory.models.data.repository.CompanyInventoryDao;
 import com.example.myInventory.models.data.repository.ToolDao;
 import com.example.myInventory.models.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("equipment")
-public class EquipmentStoreController {
+@RequestMapping("company")
+public class CompanyController {
 
     @Autowired
     private UserRepository userRepository;
@@ -28,10 +28,10 @@ public class EquipmentStoreController {
     private ToolDao toolDao;
 
     @Autowired
-    private EquipmentStoreDao equipmentStoreDao;
+    private CompanyDao companyDao;
 
     @Autowired
-    private InventoryDao inventoryDao;
+    private CompanyInventoryDao companyInventoryDao;
 
     @RequestMapping(value = "store")
     public String index(Model model, @RequestParam int user){
@@ -40,9 +40,9 @@ public class EquipmentStoreController {
         model.addAttribute("userId",user1.getId());
         model.addAttribute("username",user1.getUsername());
         model.addAttribute("title",user1.getUsername() + " Companies");
-        model.addAttribute("stores", user1.getEquipmentStores());
+        model.addAttribute("stores", user1.getCompanies());
 
-        return "equipmentStore/index";
+        return "company/index";
     }
 
     @RequestMapping(value = "search", method = RequestMethod.POST)
@@ -50,12 +50,12 @@ public class EquipmentStoreController {
 
         User user1 = userRepository.findOne(user);
 
-        List<EquipmentStore> stores = SearchData.equipmentStoreSearch(user1,searchRequest);
+        List<Company> stores = SearchData.equipmentStoreSearch(user1,searchRequest);
         model.addAttribute("userId",user1.getId());
         model.addAttribute("title",user1.getUsername() + " Companies");
         model.addAttribute("stores", stores);
 
-        return "equipmentStore/index";
+        return "company/index";
     }
 
     @RequestMapping(value = "add/user/{userId}", method = RequestMethod.GET)
@@ -64,27 +64,27 @@ public class EquipmentStoreController {
         model.addAttribute("title", "Add Company");
         model.addAttribute("userId", userId);
         model.addAttribute("username", userRepository.findOne(userId).getUsername());
-        model.addAttribute(new EquipmentStore());
+        model.addAttribute(new Company());
 
-        return "equipmentStore/add";
+        return "company/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddStoreForm(@ModelAttribute @Valid EquipmentStore equipmentStore, Errors errors, Model model,
+    public String processAddStoreForm(@ModelAttribute @Valid Company company, Errors errors, Model model,
                                       @RequestParam String inventoryName, @RequestParam int userId){
         User user = userRepository.findOne(userId);
         //checks for errors
         if(errors.hasErrors()){
             model.addAttribute("title","Add Company");
-            return "equipmentStore/add";
+            return "company/add";
         }
 
         //create store and it's inventory
-        Inventory inventory = new Inventory(inventoryName);
-        inventoryDao.save(inventory);
-        equipmentStore.setInventory(inventory);
-        user.getEquipmentStores().add(equipmentStore);
-        equipmentStoreDao.save(equipmentStore);
+        CompanyInventory inventory = new CompanyInventory(inventoryName);
+        companyInventoryDao.save(inventory);
+        company.setInventory(inventory);
+        user.getCompanies().add(company);
+        companyDao.save(company);
 
         return "redirect:store/?user=" + user.getId();
     }
@@ -97,9 +97,9 @@ public class EquipmentStoreController {
         model.addAttribute("userId",userId);
         model.addAttribute("title","Remove company");
         model.addAttribute("username",user.getUsername());
-        model.addAttribute("stores",user.getEquipmentStores());
+        model.addAttribute("stores",user.getCompanies());
 
-        return "equipmentStore/remove";
+        return "company/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
@@ -111,17 +111,17 @@ public class EquipmentStoreController {
         if(storeIds  == null){
             model.addAttribute("userId",userId);
             model.addAttribute("title","Remove company");
-            model.addAttribute("stores",user.getEquipmentStores());
+            model.addAttribute("stores",user.getCompanies());
             model.addAttribute("username",user.getUsername());
             model.addAttribute("error","please check one of the boxes");
 
-            return "equipmentStore/remove";
+            return "company/remove";
         }
 
         for (int storeId: storeIds) {
-            EquipmentStore equipmentStore = equipmentStoreDao.findOne(storeId);
-            user.removeEquipmentStore(equipmentStore);
-            equipmentStoreDao.delete(equipmentStore);
+            Company company = companyDao.findOne(storeId);
+            user.removeCompany(company);
+            companyDao.delete(company);
         }
         return "redirect:/equipment/store/?user=" + userId;
     }

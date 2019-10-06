@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-public class EquipmentStore {
+public class Company {
 
     @Id
     @GeneratedValue
@@ -35,15 +35,15 @@ public class EquipmentStore {
     private String phoneNumber;
 
     @ManyToOne
-    private Inventory inventory;
+    private CompanyInventory companyInventory;
 
-    @ManyToMany(mappedBy = "equipmentStores")
+    @ManyToMany(mappedBy = "companies")
     private List<User> users;
 
-    public  EquipmentStore(){}
+    public Company(){}
 
-    public EquipmentStore (String name, String streetAddress, String city, String state, String zip,
-                  String phoneNumber){
+    public Company(String name, String streetAddress, String city, String state, String zip,
+                   String phoneNumber){
         this.name = name;
         this.streetAddress = streetAddress;
         this.city = city;
@@ -60,8 +60,8 @@ public class EquipmentStore {
         return name;
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public CompanyInventory getInventory() {
+        return companyInventory;
     }
 
     public String getStreetAddress() {
@@ -93,8 +93,8 @@ public class EquipmentStore {
         this.name = name;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public void setInventory(CompanyInventory companyInventory) {
+        this.companyInventory = companyInventory;
     }
 
     public void setStreetAddress(String streetAddress) {

@@ -16,25 +16,25 @@
 <header class="nav-border side-nav">
     <nav class="nav flex-column">
                 <span class="side-link">
-                    <a class="nav-link" th:href="@{/inventory/user/{userId}/add/{id}(id=${store.id},userId=${userId})}">
+                    <a class="nav-link" th:href="@{/equipment/user/{userId}/add/{id}(id=${store.id},userId=${userId})}">
                         <img th:src="@{/images/addImage.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Add equipment</span>
                     </a>
                 </span>
         <span class="side-link">
-                    <a class="nav-link" th:href="@{/inventory/user/{userId}/remove/{id}(id=${store.id},userId=${userId})}">
+                    <a class="nav-link" th:href="@{/equipment/user/{userId}/remove/{id}(id=${store.id},userId=${userId})}">
                         <img th:src="@{/images/removeItem.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Remove equipment</span>
                     </a>
                 </span>
         <span class="side-link">
-                    <a class="nav-link" th:href="@{/inventory/user/{userId}(userId=${userId},id=${store.id})}">
+                    <a class="nav-link" th:href="@{/equipment/user/{userId}(userId=${userId},id=${store.id})}">
                         <img th:src="@{/images/inventoryIcon.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Inventory</span>
                     </a>
                 </span>
         <span class="side-link">
-                    <a class="nav-link" th:href="@{/store/(user=${userId})}">
+                    <a class="nav-link" th:href="@{/company/store/(user=${userId})}">
                         <img th:src="@{/images/store.png}" height="42" width="42" alt="Not Found" />
                         <span style="padding-left: 5px;">Companies</span>
                     </a>
@@ -56,8 +56,8 @@
                     <span th:text="${item.name}"></span>
                 </a>
             </td>
-            <td th:text="${item.available}"></td>
-            <td th:text="${item.totalQty}"></td>
+            <td th:text="${item.getAvailable()}"></td>
+            <td th:text="${item.getQuantity()}"></td>
         </tr>
     </table>
 </div>

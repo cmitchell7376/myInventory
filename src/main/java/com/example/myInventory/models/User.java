@@ -48,7 +48,7 @@ public class User {
     private List<Store> stores;
 
     @ManyToMany
-    private List<EquipmentStore> equipmentStores;
+    private List<Company> companies;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -96,8 +96,8 @@ public class User {
         return stores;
     }
 
-    public List<EquipmentStore> getEquipmentStores() {
-        return equipmentStores;
+    public List<Company> getCompanies() {
+        return companies;
     }
 
     public List<Supplier> getSuppliers() {
@@ -138,8 +138,8 @@ public class User {
         this.stores = stores;
     }
 
-    public void setEquipmentStores(List<EquipmentStore> equipmentStores) {
-        this.equipmentStores = equipmentStores;
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
     }
 
     public void setSuppliers(List<Supplier> suppliers) {
@@ -154,7 +154,7 @@ public class User {
         stores.remove(item);
     }
 
-    public void  removeEquipmentStore (EquipmentStore item){
-        equipmentStores.remove(item);
+    public void removeCompany(Company item){
+        companies.remove(item);
     }
 }

@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-public class Inventory {
+public class CompanyInventory {
 
     @Id
     @GeneratedValue
@@ -18,22 +18,15 @@ public class Inventory {
 
     @OneToMany
     @JoinColumn(name = "inventory_id")
-    private List<Store>stores;
-
-    @OneToMany
-    @JoinColumn(name = "inventory_id")
     private List<Company> companies;
-
-    @ManyToMany
-    private List<Item>items;
 
     @ManyToMany
     private List<Equipment>equipment;
 
 
-    public Inventory(){ }
+    public CompanyInventory() { }
 
-    public Inventory(String name){
+    public CompanyInventory(String name){
         this.name = name;
     }
 
@@ -45,24 +38,16 @@ public class Inventory {
         return name;
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
-
     public List<Equipment> getEquipment() {
         return equipment;
     }
 
+    public List<Company> getCompanies() {
+        return companies;
+    }
+
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void addItem(Item item){
-        items.add(item);
-    }
-
-    public void removeItem(Item item){
-        items.remove(item);
     }
 
     public void addEquipment(Equipment equip){

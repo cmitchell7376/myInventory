@@ -19,8 +19,6 @@ public class Equipment {
     @Size(min = 1, max = 100, message = "field empty")
     private String name;
 
-    @NotNull
-    @Size(min = 0)
     private int available;
 
     private int quantity;
@@ -29,7 +27,7 @@ public class Equipment {
     private List<Tool> tools;
 
     @ManyToMany(mappedBy = "equipment")
-    private List<Inventory>inventories;
+    private List<CompanyInventory>companyInventories;
 
     public Equipment(){}
     public Equipment(String name){

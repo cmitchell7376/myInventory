@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav(context=${username},content=${userId})"></nav>
+
+<div id="page-container">
+    <div id="content-wrap">
+        <div class="add-form">
+
+            <h1 th:text="${title}"></h1>
+
+            <form method="post" th:object="${equipment}" action="/equipment/add">
+                <div class="form-group">
+                    <label th:for="name">Name</label>
+                    <input class="form-control" th:field="*{name}"/>
+                    <span th:errors="*{name}" class="error"></span>
+                </div>
+
+                <input type="hidden" th:value="${storeId}" name="storeId"/>
+                <input type="hidden" th:value="${userId}" name="userId"/>
+                <input type="submit" value="Add"/>
+            </form>
+        </div>
+    </div>
+
+    <footer th:replace="fragments :: footer"></footer>
+</div>
+</body>
+</html>
