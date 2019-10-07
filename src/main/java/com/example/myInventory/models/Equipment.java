@@ -70,6 +70,14 @@ public class Equipment {
         this.available = available;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setTools(List<Tool> tools) {
+        this.tools = tools;
+    }
+
     public void addTool(Tool tool){
         tools.add(tool);
     }

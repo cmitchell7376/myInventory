@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav(context=${username},content=${userId})"></nav>
+
+<div class="removeWindow">
+    <h3 th:text="${title}">Default title</h3>
+
+    <div class="table-border">
+        <form method="post" action="/equipment/remove">
+            <table class="table ">
+                <tr>
+                    <th>Checkbox</th>
+                    <th>Item Name</th>
+                </tr>
+                <tr th:each="item : ${items}">
+                    <td>
+                        <input type="checkbox" name="itemIds" th:value="${item.id}" th:id="${item.getId()}" />
+                        <div th:text="${error}" class="error"></div>
+                    </td>
+                    <td>
+                        <label th:for="${item.getId()}" th:text="${item.name}"></label>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" th:value="${storeId}" name="storeId"/>
+            <input type="hidden" th:value="${userId}" name="userId"/>
+            <input type="submit" value="Remove"/>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

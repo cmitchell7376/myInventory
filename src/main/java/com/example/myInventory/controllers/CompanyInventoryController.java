@@ -3,10 +3,7 @@ package com.example.myInventory.controllers;
 import com.example.myInventory.models.Company;
 import com.example.myInventory.models.CompanyInventory;
 import com.example.myInventory.models.Equipment;
-import com.example.myInventory.models.data.repository.CompanyDao;
-import com.example.myInventory.models.data.repository.CompanyInventoryDao;
-import com.example.myInventory.models.data.repository.EquipmentDao;
-import com.example.myInventory.models.data.repository.UserRepository;
+import com.example.myInventory.models.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("equipment")
@@ -65,7 +63,7 @@ public class CompanyInventoryController {
             model.addAttribute("storeId",storeId);
             model.addAttribute("title","Add Equipment");
 
-            return "equipmentInventory/add";
+            return "companyInventory/add";
         }
 
         //finds the store and it's inventory then adds new item to inventory
@@ -77,5 +75,43 @@ public class CompanyInventoryController {
         companyInventoryDao.save(inventory);
 
         return "redirect:user/" + userId + "?id=" + storeId;
+    }
+
+    @RequestMapping(value = "user/{userId}/remove/{id}", method = RequestMethod.GET)
+    public String removeItemForm(Model model,@PathVariable int id, @PathVariable int userId){
+
+        model.addAttribute("title","Remove Product");
+        model.addAttribute("items",companyDao.findOne(id).getInventory().getEquipment());
+        model.addAttribute("storeId",id);
+        model.addAttribute("userId", userId);
+        model.addAttribute("username",userRepository.findOne(userId).getUsername());
+
+        return "companyInventory/remove";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public  String processRemoveStore(Model model, @RequestParam(value = "itemIds", required = false) List<Integer> itemIds,
+                                      @RequestParam int storeId, @RequestParam int userId) {
+
+        Company store = companyDao.findOne(storeId);
+
+        if(itemIds  == null){
+            model.addAttribute("title","Remove Product");
+            model.addAttribute("items",companyDao.findOne(storeId).getInventory().getEquipment());
+            model.addAttribute("storeId",storeId);
+            model.addAttribute("userId", userId);
+            model.addAttribute("username",userRepository.findOne(userId).getUsername());
+            model.addAttribute("error","please check one of the boxes");
+
+            return "companyInventory/remove";
+        }
+
+        for (int itemId : itemIds) {
+            Equipment item = companyInventoryData.checkByName(store, itemId);
+            companyDao.findOne(storeId).getInventory().removeEquipment(item);
+            equipmentDao.delete(item);
+        }
+
+        return "redirect:user/" + userId + "/?id=" + storeId;
     }
 }
