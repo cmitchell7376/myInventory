@@ -3,6 +3,7 @@ package com.example.myInventory.controllers;
 import com.example.myInventory.models.Company;
 import com.example.myInventory.models.CompanyInventory;
 import com.example.myInventory.models.Equipment;
+import com.example.myInventory.models.data.SearchData;
 import com.example.myInventory.models.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -113,5 +115,25 @@ public class CompanyInventoryController {
         }
 
         return "redirect:user/" + userId + "/?id=" + storeId;
+    }
+
+
+    @RequestMapping(value = "search/user/{userId}", method = RequestMethod.POST)
+    public String search(Model model, @RequestParam int id, @PathVariable int userId,
+                         @RequestParam String searchRequest, @RequestParam String searchType){
+
+        Company store = companyDao.findOne(id);
+        List<Equipment>items = new ArrayList<>();
+
+        if(searchType.equalsIgnoreCase("Name")){
+            items = SearchData.equipmentSearchName(store,searchRequest);
+        }
+
+        model.addAttribute("items",items);
+        model.addAttribute("store",store);
+        model.addAttribute("userId",userId);
+        model.addAttribute("title",store.getInventory().getName()+" Inventory");
+
+        return "companyInventory/index";
     }
 }

@@ -1,9 +1,6 @@
 package com.example.myInventory.models.data;
 
-import com.example.myInventory.models.Company;
-import com.example.myInventory.models.Item;
-import com.example.myInventory.models.Store;
-import com.example.myInventory.models.User;
+import com.example.myInventory.models.*;
 import com.example.myInventory.models.data.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -94,5 +91,28 @@ public class SearchData {
             }
         }
         return storeFound;
+    }
+
+    public static List<Equipment> equipmentSearchName(Company store, String searchRequest){
+
+        List<Equipment> itemFound = new ArrayList<>();
+
+        String [] itemNameSplit;
+        List<Equipment> items = store.getInventory().getEquipment();
+
+        for (Equipment item: items) {
+            if(item.getName().equalsIgnoreCase(searchRequest)){
+                itemFound.add(item);
+            }else {
+                itemNameSplit = item.getName().split("");
+
+                for (String word : itemNameSplit) {
+                    if(word.equalsIgnoreCase(searchRequest)){
+                        itemFound.add(item);
+                    }
+                }
+            }
+        }
+        return itemFound;
     }
 }
