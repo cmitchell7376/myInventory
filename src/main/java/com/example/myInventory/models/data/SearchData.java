@@ -98,7 +98,7 @@ public class SearchData {
         List<Equipment> itemFound = new ArrayList<>();
 
         String [] itemNameSplit;
-        List<Equipment> items = store.getInventory().getEquipment();
+        List<Equipment> items = store.getCompanyInventory().getEquipment();
 
         for (Equipment item: items) {
             if(item.getName().equalsIgnoreCase(searchRequest)){

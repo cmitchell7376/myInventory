@@ -60,7 +60,7 @@ public class Company {
         return name;
     }
 
-    public CompanyInventory getInventory() {
+    public CompanyInventory getCompanyInventory() {
         return companyInventory;
     }
 

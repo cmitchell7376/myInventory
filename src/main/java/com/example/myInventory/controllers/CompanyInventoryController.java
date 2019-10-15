@@ -3,7 +3,9 @@ package com.example.myInventory.controllers;
 import com.example.myInventory.models.Company;
 import com.example.myInventory.models.CompanyInventory;
 import com.example.myInventory.models.Equipment;
+import com.example.myInventory.models.data.EquipmentData;
 import com.example.myInventory.models.data.SearchData;
+import com.example.myInventory.models.data.CompanyInventoryData;
 import com.example.myInventory.models.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,11 +37,11 @@ public class CompanyInventoryController {
     public String Index(Model model, @RequestParam int id, @PathVariable int userId){
 
         Company store = companyDao.findOne(id);
-        model.addAttribute("items",store.getInventory().getEquipment());
+        model.addAttribute("items",store.getCompanyInventory().getEquipment());
         model.addAttribute("store",store);
         model.addAttribute("userId",userId);
         model.addAttribute("username", userRepository.findOne(userId).getUsername());
-        model.addAttribute("title",store.getInventory().getName()+" Inventory");
+        model.addAttribute("title",store.getCompanyInventory().getName()+" Inventory");
 
         return "companyInventory/index";
     }
@@ -70,7 +72,7 @@ public class CompanyInventoryController {
 
         //finds the store and it's inventory then adds new item to inventory
         Company company = companyDao.findOne(storeId);
-        int inventoryId = company.getInventory().getId();
+        int inventoryId = company.getCompanyInventory().getId();
         CompanyInventory inventory = companyInventoryDao.findOne(inventoryId);
         equipmentDao.save(equipment);
         inventory.addEquipment(equipment);
@@ -83,7 +85,7 @@ public class CompanyInventoryController {
     public String removeItemForm(Model model,@PathVariable int id, @PathVariable int userId){
 
         model.addAttribute("title","Remove Product");
-        model.addAttribute("items",companyDao.findOne(id).getInventory().getEquipment());
+        model.addAttribute("items",companyDao.findOne(id).getCompanyInventory().getEquipment());
         model.addAttribute("storeId",id);
         model.addAttribute("userId", userId);
         model.addAttribute("username",userRepository.findOne(userId).getUsername());
@@ -99,7 +101,7 @@ public class CompanyInventoryController {
 
         if(itemIds  == null){
             model.addAttribute("title","Remove Product");
-            model.addAttribute("items",companyDao.findOne(storeId).getInventory().getEquipment());
+            model.addAttribute("items",companyDao.findOne(storeId).getCompanyInventory().getEquipment());
             model.addAttribute("storeId",storeId);
             model.addAttribute("userId", userId);
             model.addAttribute("username",userRepository.findOne(userId).getUsername());
@@ -109,8 +111,8 @@ public class CompanyInventoryController {
         }
 
         for (int itemId : itemIds) {
-            Equipment item = companyInventoryData.checkByName(store, itemId);
-            companyDao.findOne(storeId).getInventory().removeEquipment(item);
+            Equipment item = CompanyInventoryData.checkByName(store, itemId);
+            companyDao.findOne(storeId).getCompanyInventory().removeEquipment(item);
             equipmentDao.delete(item);
         }
 
@@ -132,8 +134,37 @@ public class CompanyInventoryController {
         model.addAttribute("items",items);
         model.addAttribute("store",store);
         model.addAttribute("userId",userId);
-        model.addAttribute("title",store.getInventory().getName()+" Inventory");
+        model.addAttribute("title",store.getCompanyInventory().getName()+" Inventory");
 
         return "companyInventory/index";
+    }
+
+    @RequestMapping(value = "edit/user/{userId}/equip/{itemId}/company", method = RequestMethod.GET)
+    public String edit(Model model, @PathVariable int itemId,@RequestParam int id, @PathVariable int userId){
+
+        model.addAttribute("storeId",id);
+
+        //grabs previous item from database
+        Equipment equipment = equipmentDao.findOne(itemId);
+        Company company = companyDao.findOne(id);
+        Equipment newEquipment = EquipmentData.getEquipment(itemId, company);
+
+        model.addAttribute("item",newEquipment);
+        model.addAttribute("title","Edit " + newEquipment.getName());
+
+        return "companyInventory/edit";
+    }
+
+    @RequestMapping(value ="edit", method = RequestMethod.POST)
+    public String processEdit(Model model, @RequestParam int storeId, @RequestParam int itemId,
+                              @ModelAttribute Equipment newEquipment, @RequestParam int userId){
+
+        //edit's the previous item in the database
+        Equipment item = equipmentDao.findOne(itemId);
+        item.setName(newEquipment.getName());
+
+        equipmentDao.save(item);
+
+        return "redirect:user/" + userId + "?id=" + storeId;
     }
 }

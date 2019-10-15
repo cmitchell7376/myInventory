@@ -45,10 +45,10 @@
 <div class="table-border">
     <table class="table ">
         <tr>
-            <th>Product</th>
-            <th>Available</th>
-            <th>Quantity</th>
-            <th>Edit</th>
+            <th>Tool Name</th>
+            <th>In Use</th>
+            <th>Job Foreman</th>
+            <th>JobSite</th>
         </tr>
         <tr th:each="item : ${items}">
             <td>
@@ -56,14 +56,9 @@
                     <span th:text="${item.name}"></span>
                 </a>
             </td>
-            <td th:text="${item.getAvailable()}"></td>
-            <td th:text="${item.getQuantity()}"></td>
-            <td>
-                <a th:href="@{/equipment/edit/user/{userId}/equip/{itemId}/company(itemId=${item.id},id=${store.id},
-                        userId=${userId})}">
-                <span>Edit</span>
-                </a>
-            </td>
+            <td th:text="${item.getInUse()}"></td>
+            <td th:text="${item.getForeman()}"></td>
+            <td th:text="${item.getJobSite()}"></td>
         </tr>
     </table>
 </div>
