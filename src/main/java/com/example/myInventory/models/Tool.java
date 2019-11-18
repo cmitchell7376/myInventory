@@ -21,7 +21,7 @@ public class Tool {
 
     @NotNull
     @Size(min = 1, max = 100, message = "field empty")
-    private String inUse = "";
+    private String inUse;
 
     private String foreman;
     private String jobSite;
@@ -63,13 +63,7 @@ public class Tool {
     }
 
     public void setInUse(String inUse) {
-        if(inUse.equalsIgnoreCase("yes")){
-            inUse = "yes";
-        }
-        else if(inUse.equalsIgnoreCase("no")){
-            inUse = "no";
-        }
-        inUse = null;
+        this.inUse = inUse;
     }
 
     public void setForeman(String foreman) {

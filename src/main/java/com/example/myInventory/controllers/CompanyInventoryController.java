@@ -3,9 +3,10 @@ package com.example.myInventory.controllers;
 import com.example.myInventory.models.Company;
 import com.example.myInventory.models.CompanyInventory;
 import com.example.myInventory.models.Equipment;
+import com.example.myInventory.models.Tool;
+import com.example.myInventory.models.data.CompanyInventoryData;
 import com.example.myInventory.models.data.EquipmentData;
 import com.example.myInventory.models.data.SearchData;
-import com.example.myInventory.models.data.CompanyInventoryData;
 import com.example.myInventory.models.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,9 @@ public class CompanyInventoryController {
 
     @Autowired
     private EquipmentDao equipmentDao;
+
+    @Autowired
+    private ToolDao toolDao;
 
     @RequestMapping(value = "user/{userId}", method = RequestMethod.GET)
     public String Index(Model model, @RequestParam int id, @PathVariable int userId){
@@ -110,10 +114,21 @@ public class CompanyInventoryController {
             return "companyInventory/remove";
         }
 
+        List<Tool> tools = new ArrayList<Tool>();
+        int size = 0;
         for (int itemId : itemIds) {
-            Equipment item = CompanyInventoryData.checkByName(store, itemId);
-            companyDao.findOne(storeId).getCompanyInventory().removeEquipment(item);
-            equipmentDao.delete(item);
+            Equipment equip = CompanyInventoryData.checkByName(store, itemId);
+                size = equip.getTools().size();
+                for (Tool tool:equip.getTools()) {
+                    tools.add(tool);
+                    equip.getTools().remove(tool);
+                }
+            companyDao.findOne(storeId).getCompanyInventory().removeEquipment(equip);
+            equipmentDao.delete(equip);
+        }
+
+        for (Tool tool:tools) {
+            toolDao.delete(tool);
         }
 
         return "redirect:user/" + userId + "/?id=" + storeId;
