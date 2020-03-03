@@ -9,4 +9,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface StoreDao extends CrudRepository<Store, Integer> {
+    Store findOne(int id);
 }

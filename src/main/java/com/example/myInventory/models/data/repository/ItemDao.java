@@ -9,4 +9,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface ItemDao extends CrudRepository<Item, Integer> {
+    Item findOne(int itemId);
 }

@@ -9,4 +9,7 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface SupplierDao extends CrudRepository<Supplier, Integer> {
+    Supplier findOne(int supplierId);
+
+    void delete(int supplierId);
 }
